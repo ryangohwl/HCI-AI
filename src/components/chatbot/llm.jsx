@@ -1,8 +1,10 @@
 import ChatBot from "react-chatbotify";
 import OpenAI from "openai";
+
 import React, { useState } from 'react';
 
 const mainColor = "#EFBE7B"
+
 
 const MyChatBot = () => {
 	let apiKey = null;
@@ -32,10 +34,12 @@ const MyChatBot = () => {
 		}
 	}
 	const flow={
+
         options: {
             openChat: {isOpen:false}
         },
         
+
 
 		start: {
 			message: "Ask me anything",
@@ -61,6 +65,7 @@ const MyChatBot = () => {
 			}
 		}
 	}
+
 	const buttonConfig ={
 		headerStyle:{background: mainColor},
 		tooltipStyle:{background: mainColor},
@@ -79,6 +84,7 @@ const MyChatBot = () => {
 	return (
 		// options={{openChat: {isOpen:false}, theme: {embedded: true}, chatHistory: {storageKey: "example_llm_conversation"}}}
 		<ChatBot  options={buttonConfig} flow={flow}/>
+
 	);
 };
 
