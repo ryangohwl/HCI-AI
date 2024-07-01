@@ -5,6 +5,9 @@ import "./index.css";
 import { Tldraw } from "tldraw";
 import MyChatBot from "./components/chatbot/llm";
 
+import ChatBot from "react-chatbotify";
+
+
 function App() {
   return (
     <div>
@@ -13,6 +16,9 @@ function App() {
       </div>
       <div className="chatbot">
         <MyChatBot />
+
+        {/* <ChatBot /> */}
+
       </div>
     </div>
   );

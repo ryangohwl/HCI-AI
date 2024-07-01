@@ -1,6 +1,9 @@
 import ChatBot from "react-chatbotify";
 import OpenAI from "openai";
 
+import React, { useState } from 'react';
+
+const mainColor = "#EFBE7B"
 
 
 const MyChatBot = () => {
@@ -31,6 +34,13 @@ const MyChatBot = () => {
 		}
 	}
 	const flow={
+
+        options: {
+            openChat: {isOpen:false}
+        },
+        
+
+
 		start: {
 			message: "Ask me anything",
 			path: "loop",
@@ -55,8 +65,26 @@ const MyChatBot = () => {
 			}
 		}
 	}
+
+	const buttonConfig ={
+		headerStyle:{background: mainColor},
+		tooltipStyle:{background: mainColor},
+		botBubbleStyle:{background: mainColor},
+		chatHistory: {storageKey: "example_llm_conversation"},
+		chatButton: {icon: "/capybara.png"},
+		tooltip: {text: "Ask Me Anything!😊 "},
+		botBubble:{showAvatar: true ,avatar: "/capybara.png"},
+		header: {
+			avatar: "/capybara.png",
+			 title: "Capybara" ,
+		}
+			 
+		}
+
 	return (
-		<ChatBot options={{theme: {embedded: true}, chatHistory: {storageKey: "example_llm_conversation"}}} flow={flow}/>
+		// options={{openChat: {isOpen:false}, theme: {embedded: true}, chatHistory: {storageKey: "example_llm_conversation"}}}
+		<ChatBot  options={buttonConfig} flow={flow}/>
+
 	);
 };
 
