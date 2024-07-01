@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+.tldraw {
+  position: absolute;
+  inset: 0;
+  z-index: 1; /* Lower z-index than chatbot */
+}
+
+.chatbot {
+  position: absolute;
+  bottom: 20px; /* Adjust based on your layout */
+  right: 20px; /* Adjust based on your layout */
+  z-index: 2; /* Higher z-index to be on top */
+}
