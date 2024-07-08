@@ -1,3 +1,4 @@
+/* Existing styles */
 .App {
   text-align: center;
 }
@@ -36,6 +37,7 @@
     transform: rotate(360deg);
   }
 }
+
 .tldraw {
   position: absolute;
   inset: 0;
@@ -47,4 +49,17 @@
   bottom: 20px; /* Adjust based on your layout */
   right: 20px; /* Adjust based on your layout */
   z-index: 2; /* Higher z-index to be on top */
+}
+
+/* New styles for the login page */
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+  margin: auto;
+}
+
+.error {
+  color: red;
 }
