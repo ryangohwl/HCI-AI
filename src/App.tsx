@@ -1,12 +1,9 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import "./index.css";
 import { Tldraw } from "tldraw";
 import MyChatBot from "./components/chatbot/llm";
-
-import ChatBot from "react-chatbotify";
-
+// import Button from "./components/canvas/Button";
 
 function App() {
   return (
@@ -16,9 +13,6 @@ function App() {
       </div>
       <div className="chatbot">
         <MyChatBot />
-
-        {/* <ChatBot /> */}
-
       </div>
     </div>
   );
