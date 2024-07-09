@@ -1,35 +1,64 @@
-import React, { useState } from "react";
-import "./App.css";
-import "./index.css";
-import { Tldraw } from "tldraw";
-import MyChatBot from "./components/chatbot/llm";
-import Login from './LoginPage';
+import { useEffect } from "react";
+import {
+  Routes,
+  Route,
+  useNavigationType,
+  useLocation,
+} from "react-router-dom";
+import Home from "./pages/Home";
+import NewWorkspace from "./pages/NewWorkspace";
+import Login from "./pages/Login";
 
 function App() {
-  // State to manage whether the user is logged in
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const action = useNavigationType();
+  const location = useLocation();
+  const pathname = location.pathname;
 
-  // Function to handle successful login
-  const handleLoginSuccess = () => {
-    setIsLoggedIn(true);
-  };
+  useEffect(() => {
+    if (action !== "POP") {
+      window.scrollTo(0, 0);
+    }
+  }, [action, pathname]);
+
+  useEffect(() => {
+    let title = "";
+    let metaDescription = "";
+
+    switch (pathname) {
+      case "/":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/new-workspace":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/login":
+        title = "";
+        metaDescription = "";
+        break;
+    }
+
+    if (title) {
+      document.title = title;
+    }
+
+    if (metaDescription) {
+      const metaDescriptionTag: HTMLMetaElement | null = document.querySelector(
+        'head > meta[name="description"]'
+      );
+      if (metaDescriptionTag) {
+        metaDescriptionTag.content = metaDescription;
+      }
+    }
+  }, [pathname]);
 
   return (
-    <div>
-      {!isLoggedIn ? (
-        <Login onLogin={handleLoginSuccess} />
-      ) : (
-        <>
-          <div className="tldraw">
-            <Tldraw />
-          </div>
-          <div className="chatbot">
-            <MyChatBot />
-          </div>
-        </>
-      )}
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/new-workspace" element={<NewWorkspace />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
   );
 }
-
 export default App;
