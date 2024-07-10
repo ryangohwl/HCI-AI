@@ -1,13 +1,11 @@
-
 import React, { useState } from "react";
-
 import "./App.css";
 import "./index.css";
 import { Tldraw } from "tldraw";
 import MyChatBot from "./components/chatbot/llm";
-
-import Login from './LoginPage';
-
+import Login from "./LoginPage";
+import components from "./components/canvas/RightClickGenerate";
+import GetSelectedTexts from "./components/canvas/GetSelectedText";
 function App() {
   // State to manage whether the user is logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,7 +22,9 @@ function App() {
       ) : (
         <>
           <div className="tldraw">
-            <Tldraw />
+            <Tldraw persistenceKey="Save-Whiteboard" components={components}>
+              <GetSelectedTexts />
+            </Tldraw>
           </div>
           <div className="chatbot">
             <MyChatBot />
