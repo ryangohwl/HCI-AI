@@ -7,10 +7,9 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^29.5.0",
+    "@types/node": "^18.0.0 || >=20.0.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "react-router-dom": "^6.2.1",
-    "@types/node": "^16.18.101",
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "crypto-browserify": "^3.12.0",
@@ -24,25 +23,26 @@
     "react-chatbotify": "^1.7.0",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.1",
     "tldraw": "^2.3.0",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.8",
-    "postcss": "^8.4.16",
-    "tailwindcss": "^3.1.8",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-helmet": "^6.1.11",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.8",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
-    "vite": "^5.2.3",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@types/react-helmet": "^6.1.11"
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8",
+    "vite": "^5.3.3"
   },
   "scripts": {
     "start": "vite",
@@ -64,5 +64,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "Note: Please ensure you have installed <code><a href=\"https://nodejs.org/en/download/\">nodejs</a></code>",
+  "main": "postcss.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

@@ -5,8 +5,8 @@ import {
   useNavigationType,
   useLocation,
 } from "react-router-dom";
-import "./App.css";
-import "./index.css";
+import "./App.tsx";
+import "./index.tsx";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { Tldraw } from "tldraw";
