@@ -5,9 +5,12 @@ import {
   useNavigationType,
   useLocation,
 } from "react-router-dom";
+import "./App.css";
+import "./index.css";
 import Home from "./pages/Home";
-import NewWorkspace from "./pages/NewWorkspace";
 import Login from "./pages/Login";
+import { Tldraw } from "tldraw";
+import MyChatBot from "./components/chatbot/llm";
 
 function App() {
   const action = useNavigationType();
@@ -29,7 +32,7 @@ function App() {
         title = "";
         metaDescription = "";
         break;
-      case "/new-workspace":
+      case "/tldraw":
         title = "";
         metaDescription = "";
         break;
@@ -56,7 +59,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/new-workspace" element={<NewWorkspace />} />
+      <Route path="/tldraw" element={<tldraw />} />
       <Route path="/login" element={<Login />} />
     </Routes>
   );
