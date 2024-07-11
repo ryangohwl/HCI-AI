@@ -1,5 +1,5 @@
 
-  # hi-fi prototype (iteration 2)
+  # HCI locofy 3
 
   Note: Please ensure you have installed <code><a href="https://nodejs.org/en/download/">nodejs</a></code>
 

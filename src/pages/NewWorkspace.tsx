@@ -1,6 +1,5 @@
 import { FunctionComponent, useCallback } from "react";
 import ToolsBar from "../components/ToolsBar";
-import TextBubble from "../components/TextBubble";
 
 const NewWorkspace: FunctionComponent = () => {
   const onCapybaraImageClick = useCallback(() => {
@@ -11,7 +10,7 @@ const NewWorkspace: FunctionComponent = () => {
   }, []);
 
   return (
-    <div className="w-full relative bg-white h-[982px] overflow-auto">
+    <div className="w-full relative bg-white h-[982px] overflow-auto text-center text-xl text-black font-jaldi">
       <ToolsBar />
       <div className="absolute right-[39px] bottom-[0px] w-[237px] h-[272px] overflow-hidden">
         <img
@@ -137,15 +136,21 @@ const NewWorkspace: FunctionComponent = () => {
           </div>
         </button>
       </div>
-      <TextBubble
-        typeSomething="Click on me and ask me anything!"
-        avatar="/avatar.svg"
-        property1BluePosition="absolute"
-        property1BlueTop="732px"
-        property1BlueLeft="786px"
-        property1BlueFilter="drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))"
-        property1BlueWidth="462px"
-      />
+      <div
+        className="absolute right-[264px] bottom-[149px] [filter:drop-shadow(0px_4px_4px_rgba(0,_0,_0,_0.25))] w-[462px] flex flex-row items-center justify-between py-3 px-2 box-border"
+        data-scroll-to="rightChatBubble"
+      >
+        <div className="w-[440px] rounded-2xl bg-lavender overflow-hidden shrink-0 flex flex-col items-center justify-start p-6 box-border">
+          <div className="self-stretch relative tracking-[0.02em] leading-[144%]">
+            Click on me and ask me anything!
+          </div>
+        </div>
+        <img
+          className="w-3.5 relative h-[74px] object-contain"
+          alt=""
+          src="/avatar.svg"
+        />
+      </div>
     </div>
   );
 };

@@ -1,21 +1,31 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 export type ToolsBarType = {
   className?: string;
 };
 
 const ToolsBar: FunctionComponent<ToolsBarType> = ({ className = "" }) => {
+  const navigate = useNavigate();
+
+  const onFrameClick = useCallback(() => {
+    navigate("/");
+  }, [navigate]);
+
   return (
     <nav
       className={`m-0 absolute top-[0px] left-[calc(50%_-_697px)] w-[1394px] h-[91px] ${className}`}
     >
-      <a className="[text-decoration:none] absolute top-[22px] left-[0px] w-[46px] h-[47px] overflow-hidden">
+      <button
+        className="cursor-pointer [border:none] p-0 bg-[transparent] absolute top-[22px] left-[0px] w-[46px] h-[47px] overflow-hidden"
+        onClick={onFrameClick}
+      >
         <img
           className="absolute w-full top-[0px] right-[0px] left-[0px] max-w-full overflow-hidden h-[46px]"
           alt=""
           src="/icon--android--24--chevronleft.svg"
         />
-      </a>
+      </button>
       <div className="absolute top-[22px] left-[231px] w-[107px] h-[47px] overflow-hidden">
         <button className="cursor-pointer [border:none] p-0 bg-[transparent] absolute top-[0px] left-[0px] w-[107px] h-9">
           <button className="cursor-pointer [border:none] p-0 bg-[transparent] absolute w-[calc(100%_-_71px)] top-[0px] right-[0px] left-[71px] h-9">

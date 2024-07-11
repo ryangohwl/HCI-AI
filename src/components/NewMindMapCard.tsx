@@ -1,11 +1,13 @@
 import { FunctionComponent, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export type NewCardType = {
+export type NewMindMapCardType = {
   className?: string;
 };
 
-const NewCard: FunctionComponent<NewCardType> = ({ className = "" }) => {
+const NewMindMapCard: FunctionComponent<NewMindMapCardType> = ({
+  className = "",
+}) => {
   const navigate = useNavigate();
 
   const onNewMindMapClick = useCallback(() => {
@@ -42,8 +44,8 @@ const NewCard: FunctionComponent<NewCardType> = ({ className = "" }) => {
     };
   }, []);
   return (
-    <div
-      className={`absolute top-[0px] left-[calc(50%_-_682.5px)] w-[300px] h-[300px] [&.animate]:animate-[1s_ease_0s_1_normal_forwards_shadow-drop-bottom] opacity-[1] cursor-pointer text-center text-xl text-black font-jaldi hover:animate-[1s_ease_0s_1_normal_none_shadow-drop-bottom] hover:opacity-[1] ${className}`}
+    <button
+      className={`cursor-pointer [border:none] p-0 bg-[transparent] h-[300px] w-[300px] relative [&.animate]:animate-[1s_ease_0s_1_normal_forwards_shadow-drop-bottom] opacity-[1] hover:animate-[1s_ease_0s_1_normal_none_shadow-drop-bottom] hover:opacity-[1] ${className}`}
       onClick={onNewMindMapClick}
       data-animate-on-scroll
     >
@@ -55,7 +57,7 @@ const NewCard: FunctionComponent<NewCardType> = ({ className = "" }) => {
           src="/image-1@2x.png"
         />
       </div>
-      <b className="absolute h-[8%] w-[79.33%] top-[80.67%] left-[10.33%] inline-block">
+      <b className="absolute h-[8%] w-[79.33%] top-[80.67%] left-[10.33%] text-xl inline-block font-jaldi text-black text-center">
         New mind map
       </b>
       <img
@@ -63,8 +65,8 @@ const NewCard: FunctionComponent<NewCardType> = ({ className = "" }) => {
         alt=""
         src="/component-4.svg"
       />
-    </div>
+    </button>
   );
 };
 
-export default NewCard;
+export default NewMindMapCard;

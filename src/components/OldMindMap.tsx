@@ -1,26 +1,13 @@
-import { FunctionComponent, useMemo, type CSSProperties } from "react";
+import { FunctionComponent } from "react";
 
-export type OldCardsType = {
+export type OldMindMapType = {
   className?: string;
-
-  /** Style props */
-  component6Left?: CSSProperties["left"];
 };
 
-const OldCards: FunctionComponent<OldCardsType> = ({
-  className = "",
-  component6Left,
-}) => {
-  const component9Style: CSSProperties = useMemo(() => {
-    return {
-      left: component6Left,
-    };
-  }, [component6Left]);
-
+const OldMindMap: FunctionComponent<OldMindMapType> = ({ className = "" }) => {
   return (
     <div
-      className={`absolute top-[0px] left-[calc(50%_+_382.5px)] w-[300px] h-[300px] text-left text-xl text-black font-jaldi hover:animate-[1s_ease_0s_1_normal_none_shadow-drop-bottom] hover:opacity-[1] ${className}`}
-      style={component9Style}
+      className={`w-[300px] relative h-[300px] text-left text-xl text-black font-jaldi hover:animate-[1s_ease_0s_1_normal_none_shadow-drop-bottom] hover:opacity-[1] ${className}`}
     >
       <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%]">
         <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-xl bg-lavender" />
@@ -40,4 +27,4 @@ const OldCards: FunctionComponent<OldCardsType> = ({
   );
 };
 
-export default OldCards;
+export default OldMindMap;

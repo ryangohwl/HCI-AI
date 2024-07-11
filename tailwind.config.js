@@ -4,18 +4,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        white: "#fff",
         steelblue: "#1d5182",
         lightskyblue: {
           "100": "#9ac1f0",
           "200": "#73aeee",
         },
         black: "#000",
+        lavender: "#d1e0f3",
         lightsteelblue: {
           "100": "#abcbf2",
           "200": "#adb2c4",
         },
-        lavender: "#d1e0f3",
+        white: "#fff",
         dimgray: "#524931",
         gainsboro: {
           "100": "#e6e6e6",
@@ -66,11 +66,19 @@ module.exports = {
     },
     fontSize: {
       "13xl": "32px",
-      xl: "20px",
       mini: "15px",
+      xl: "20px",
       xs: "12px",
       "5xl": "24px",
       inherit: "inherit",
+    },
+    screens: {
+      lg: {
+        max: "1200px",
+      },
+      md: {
+        max: "960px",
+      },
     },
   },
   corePlugins: {
