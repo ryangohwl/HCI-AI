@@ -8,7 +8,7 @@ const mainColor = "#EFBE7B"
 
 const MyChatBot = () => {
 	let apiKey = null;
-	let modelType = "gpt-3.5-turbo";
+	let modelType = "gpt-4";
 	let hasError = false;
 
 	// example openai conversation
