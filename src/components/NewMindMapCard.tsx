@@ -11,7 +11,7 @@ const NewMindMapCard: FunctionComponent<NewMindMapCardType> = ({
   const navigate = useNavigate();
 
   const onNewMindMapClick = useCallback(() => {
-    navigate("/tldraw");
+    navigate("/whiteboard");
   }, [navigate]);
 
   useEffect(() => {

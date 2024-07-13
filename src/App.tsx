@@ -9,8 +9,8 @@ import "./App.tsx";
 import "./index.tsx";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import { Tldraw } from "tldraw";
-import MyChatBot from "./components/chatbot/llm";
+
+import Whiteboard from "./pages/Whiteboard.jsx";
 
 function App() {
   const action = useNavigationType();
@@ -58,9 +58,9 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/tldraw" element={<tldraw />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/whiteboard" element={<Whiteboard />} />
+      <Route path="/home" element={<Home />} />
     </Routes>
   );
 }

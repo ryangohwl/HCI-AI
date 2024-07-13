@@ -5,7 +5,7 @@ const Login: FunctionComponent = () => {
   const navigate = useNavigate();
 
   const onLoginButtonClick = useCallback(() => {
-    navigate("/");
+    navigate("/home");
   }, [navigate]);
 
   return (
