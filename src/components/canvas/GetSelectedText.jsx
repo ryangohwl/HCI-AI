@@ -1,4 +1,4 @@
-import { track, useEditor } from 'tldraw';
+import { track, useEditor } from '@tldraw/tldraw';
 import React, { useEffect, useState } from 'react';
 
 const GetSelectedTexts = track(() => {

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const apiKey = null; // INSERT API KEY
 
-export const generateQuestions = async (text: string, numQuestions: number): Promise<string[]> => {
+export const generateQuestions = async (text, numQuestions) => {
   const prompt = `
     Generate a list of ${numQuestions} short, clear, and insightful questions based on the following text. 
     Each question should be relevant to the main ideas and themes of the text. Aim for questions that 
@@ -40,8 +40,8 @@ export const generateQuestions = async (text: string, numQuestions: number): Pro
     const questions = response.data.choices[0].message.content
       .trim()
       .split('\n')
-      .map((q: string) => q.trim().replace(/^\d+\.\s*/, ''))
-      .filter((q: string) => q);
+      .map(q => q.trim().replace(/^\d+\.\s*/, ''))
+      .filter(q => q);
 
     return questions;
   } catch (error) {
