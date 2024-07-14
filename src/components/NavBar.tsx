@@ -14,9 +14,9 @@ const NavBar: FunctionComponent<NavBarType> = ({ className = "" }) => {
 
   return (
     <nav
-      className={`m-0 absolute w-[calc(100%_+_1px)] top-[0px] right-[-1px] left-[0px] h-[86px] text-left text-13xl text-steelblue font-super-easy ${className}`}
+      className={`m-0 fixed w-full top-0 h-[86px] text-left text-13xl text-steelblue font-super-easy z-1000 ${className}`}
     >
-      <nav className="m-0 absolute w-full top-[0px] right-[0px] left-[0px] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] bg-lightskyblue-100 h-[86px]" />
+      <nav className="m-0 fixed w-full top-0 shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] bg-lightskyblue-100 h-[86px]" />
       <img
         className="absolute top-[17px] left-[68px] w-[372px] h-[52px] object-cover"
         alt=""
