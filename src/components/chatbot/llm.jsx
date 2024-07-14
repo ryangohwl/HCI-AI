@@ -71,11 +71,11 @@ const MyChatBot = () => {
 		tooltipStyle:{background: mainColor},
 		botBubbleStyle:{background: mainColor},
 		chatHistory: {storageKey: "example_llm_conversation"},
-		chatButton: {icon: "/capybara.png"},
+		chatButton: {icon: "/capybara@2x.png"},
 		tooltip: {text: "Ask Me Anything!😊 "},
-		botBubble:{showAvatar: true ,avatar: "/capybara.png"},
+		botBubble:{showAvatar: true ,avatar: "/capybara@2x.png"},
 		header: {
-			avatar: "/capybara.png",
+			avatar: "/capybara@2x.png",
 			 title: "Capybara" ,
 		}
 			 

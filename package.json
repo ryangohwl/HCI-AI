@@ -1,13 +1,15 @@
 {
-  "name": "brainstorm.io",
+  "name": "hci_locofy_3",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.101",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.0.0 || >=20.0.0",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "crypto-browserify": "^3.12.0",
@@ -21,22 +23,35 @@
     "react-chatbotify": "^1.7.0",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.1",
     "tldraw": "^2.3.0",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-helmet": "^6.1.11",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.8",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8",
+    "vite": "^5.3.3"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "root": true
   },
   "browserslist": {
     "production": [
@@ -50,13 +65,9 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@types/react-helmet": "^6.1.11"
-  },
-  "resolutions": {
-    "@types/react": "18.0.26",
-    "@types/react-dom": "18.0.26"
-}
+  "description": "Note: Please ensure you have installed <code><a href=\"https://nodejs.org/en/download/\">nodejs</a></code>",
+  "main": "postcss.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
