@@ -11,50 +11,31 @@ import {
   useEditor,
 } from "tldraw";
 import "tldraw/tldraw.css";
-import { generateQuestions, generateAnswers, generateIdeas } from "./GenerateLLM"; // Correct import
+import { generateQuestions, generateAnswers, generateIdeas } from './GenerateLLM'; // Import the generate functions
+import useSelectedTexts from './GetSelectedText'; // Import useSelectedTexts
+
+type GenerateFunction = (text: string, numItems: number) => Promise<string[]>;
 
 function CustomContextMenu(props: TLUiContextMenuProps) {
   const editor = useEditor();
+  const selectedTexts = useSelectedTexts(); // Use the custom hook to get selected texts
 
-  const handleGenerate = async (type) => {
-    const text = "Your input text here"; // Replace with your actual text source
-    let results = [];
+  const handleGenerate = async (generateFunction: GenerateFunction, numItems: number) => {
+    const selectedText = selectedTexts.join(' '); // Combine all selected texts into one string
 
-    switch (type) {
-      case 'questions':
-        results = await generateQuestions(text, 10);
-        break;
-      case 'answers':
-        results = await generateAnswers(text, 10);
-        break;
-      case 'ideas':
-        results = await generateIdeas(text, 10);
-        break;
-      default:
-        break;
-    }
-
-    if (results.length) {
-      // Get the original shape position (assumes you have a way to get the original shape)
-      const originalShape = editor.selectedShapes[0];
-      const { x, y, width, height } = originalShape.props;
-
-      results.forEach((result, index) => {
-        const isLeft = index < 5;
-        const offsetIndex = isLeft ? index : index - 5;
-        const offsetX = isLeft ? -width * 2 : width * 2;
-        const offsetY = offsetIndex * (height + 10);
+    if (selectedText) {
+      try {
+        const items = await generateFunction(selectedText, numItems);
+        const itemsText = items.join('\n');
 
         editor.createShapes([
-          {
-            id: createShapeId(),
-            type: "text",
-            props: { text: `${index + 1}. ${result}` },
-            x: x + offsetX,
-            y: y + offsetY,
-          },
+          { id: createShapeId(), type: "text", props: { text: itemsText } },
         ]);
-      });
+      } catch (error) {
+        console.error(`Error generating ${numItems}:`, error);
+      }
+    } else {
+      console.warn('No text selected.');
     }
   };
 
@@ -67,21 +48,21 @@ function CustomContextMenu(props: TLUiContextMenuProps) {
             label="Generate Questions"
             icon="external-link"
             readonlyOk
-            onSelect={() => handleGenerate('questions')}
+            onSelect={() => handleGenerate(generateQuestions, 10)}
           />
           <TldrawUiMenuItem
             id="generate-answers"
             label="Generate Answers"
             icon="external-link"
             readonlyOk
-            onSelect={() => handleGenerate('answers')}
+            onSelect={() => handleGenerate(generateAnswers, 10)}
           />
           <TldrawUiMenuItem
             id="generate-ideas"
             label="Generate Ideas"
             icon="external-link"
             readonlyOk
-            onSelect={() => handleGenerate('ideas')}
+            onSelect={() => handleGenerate(generateIdeas, 10)}
           />
         </div>
         <DefaultContextMenuContent />

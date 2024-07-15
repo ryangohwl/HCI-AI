@@ -1,11 +1,8 @@
-// llmFunctions.js
-
 import axios from 'axios';
 
 const apiKey = null; // INSERT API KEY
 
 export const generateQuestions = async (text, numQuestions) => {
-  numQuestions = Math.min(numQuestions, 10); // Ensure the number is capped at 10
   const prompt = `
     Generate a list of ${numQuestions} short, clear, and insightful questions based on the following text. 
     Each question should be relevant to the main ideas and themes of the text. Aim for questions that 
@@ -54,14 +51,12 @@ export const generateQuestions = async (text, numQuestions) => {
 };
 
 export const generateAnswers = async (text, numAnswers) => {
-  numAnswers = Math.min(numAnswers, 10); // Ensure the number is capped at 10
   const prompt = `
-    Generate a list of ${numAnswers} concise, clear, and accurate answers based on the following questions. 
-    Each answer should be directly relevant to the corresponding question and provide useful information. 
-    Ensure that each answer is unique and addresses the main points of the question. Provide the answers 
-    in a numbered list format, corresponding to the questions. Separate each answer with a newline and make 
-    sure they are easy to parse.\n\n
-    Questions: "${text}"\n\n
+    Generate a list of ${numAnswers} detailed, well-explained, and insightful answers based on the following text. 
+    Each answer should be relevant to the main ideas and themes of the text. Ensure that each answer 
+    is unique and addresses different aspects of the content. Provide the answers in a numbered list format. 
+    Separate each answer with a newline and make sure they are easy to parse.\n\n
+    Text: "${text}"\n\n
     Answers:\n
     1.
   `;
@@ -102,13 +97,11 @@ export const generateAnswers = async (text, numAnswers) => {
 };
 
 export const generateIdeas = async (text, numIdeas) => {
-  numIdeas = Math.min(numIdeas, 10); // Ensure the number is capped at 10
   const prompt = `
-    Generate a list of ${numIdeas} innovative, creative, and actionable ideas based on the following text. 
-    Each idea should be relevant to the main themes and concepts of the text and should provide a fresh 
-    perspective or approach. Ensure that each idea is unique and encourages further exploration and 
-    development. Provide the ideas in a numbered list format. Separate each idea with a newline and make 
-    sure they are easy to parse.\n\n
+    Generate a list of ${numIdeas} creative, original, and insightful ideas based on the following text. 
+    Each idea should be relevant to the main ideas and themes of the text. Ensure that each idea 
+    is unique and addresses different aspects of the content. Provide the ideas in a numbered list format. 
+    Separate each idea with a newline and make sure they are easy to parse.\n\n
     Text: "${text}"\n\n
     Ideas:\n
     1.
@@ -148,3 +141,5 @@ export const generateIdeas = async (text, numIdeas) => {
     return [];
   }
 };
+
+export {};
