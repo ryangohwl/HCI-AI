@@ -9,14 +9,18 @@ import {
 } from '@tldraw/tldraw';
 import 'tldraw/tldraw.css';
 import { generateQuestions, generateAnswers, generateIdeas } from './GenerateLLM';
-import useSelectedTexts from './GetSelectedText';
+import GetSelectedTexts from './GetSelectedText'; // Ensure the path is correct
 
 const CustomContextMenu = (props) => {
   const editor = useEditor();
-  const selectedTexts = useSelectedTexts();
   const [selectedText, setSelectedText] = useState('');
 
+  // Function to update selected text
   const updateSelectedText = () => {
+    const selectedTexts = editor.getSelectedShapes()
+      .filter(shape => shape.type === 'text' && shape.props && shape.props.text)
+      .map(shape => shape.props.text);
+
     console.log('Updating selected text from selectedTexts:', selectedTexts);
     if (selectedTexts.length > 0) {
       setSelectedText(selectedTexts.join(' '));
@@ -27,12 +31,13 @@ const CustomContextMenu = (props) => {
     }
   };
 
+  // Handle click event
   const handleClick = (event) => {
     console.log('Handling click at point:', { x: event.clientX, y: event.clientY });
     const shape = editor.getShapeAtPoint({ x: event.clientX, y: event.clientY });
     if (shape && shape.type === 'text') {
       editor.selectShape(shape.id);
-      setSelectedText(shape.props.text);
+      updateSelectedText(); // Update the selected text immediately after selection
       console.log('Shape selected and text set:', shape.props.text);
     } else {
       console.log('No text shape found at clicked point');
@@ -40,10 +45,14 @@ const CustomContextMenu = (props) => {
   };
 
   useEffect(() => {
+    // Ensure editor is ready before adding listeners
+    if (!editor) return;
     updateSelectedText();
-  }, [selectedTexts]);
+  }, [editor]);
 
   useEffect(() => {
+    if (!editor) return;
+
     console.log('Adding event listeners');
     editor.on('pointerdown', handleClick);
     editor.on('selectionchange', updateSelectedText);
@@ -55,6 +64,7 @@ const CustomContextMenu = (props) => {
     };
   }, [editor]);
 
+  // Function to handle generating items
   const handleGenerateItems = async (generateFunction, numItems) => {
     console.log('Generating items for selected text:', selectedText);
     if (!selectedText) {
@@ -140,6 +150,7 @@ const CustomContextMenu = (props) => {
         </div>
         <DefaultContextMenuContent />
       </DefaultContextMenu>
+      <GetSelectedTexts />
     </div>
   );
 };

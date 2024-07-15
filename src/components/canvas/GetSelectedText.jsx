@@ -1,15 +1,24 @@
-import { useEditor } from 'tldraw';
+import { track, useEditor } from 'tldraw';
 import React from 'react';
 
-const useSelectedTexts = () => {
+// Component to get selected texts
+const GetSelectedTexts = track(() => {
   const editor = useEditor();
-  let selectedTexts = [];
 
-  if (editor.getSelectedShapes().length > 0) {
-    selectedTexts = editor.getSelectedShapes().map((shape) => shape.props.text);
-  }
+  // Function to get selected texts
+  const selectedTexts = editor.getSelectedShapes()
+    .filter(shape => shape.type === 'text' && shape.props && shape.props.text)
+    .map(shape => shape.props.text);
 
-  return selectedTexts;
-};
+  console.log('Filtered Selected Texts:', selectedTexts);
 
-export default useSelectedTexts;
+  return (
+    <div style={{ display: 'none' }}>
+      {selectedTexts.map((text, index) => (
+        <div key={index}>{text}</div>
+      ))}
+    </div>
+  );
+});
+
+export default GetSelectedTexts;
