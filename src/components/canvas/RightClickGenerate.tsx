@@ -19,13 +19,35 @@ function CustomContextMenu(props: TLUiContextMenuProps) {
       <DefaultContextMenu {...props}>
         <div style={{ backgroundColor: "thistle" }}>
           <TldrawUiMenuItem
-            id="like"
+            id="generate-questions"
             label="Generate Questions"
             icon="external-link"
             readonlyOk
             onSelect={() => {
               editor.createShapes([
-                { id: createShapeId(), type: "text", props: { text: "ok" } },
+                { id: createShapeId(), type: "text", props: { text: "Generated Question" } },
+              ]);
+            }}
+          />
+          <TldrawUiMenuItem
+            id="generate-answers"
+            label="Generate Answers"
+            icon="external-link"
+            readonlyOk
+            onSelect={() => {
+              editor.createShapes([
+                { id: createShapeId(), type: "text", props: { text: "Generated Answer" } },
+              ]);
+            }}
+          />
+          <TldrawUiMenuItem
+            id="generate-ideas"
+            label="Generate Ideas"
+            icon="external-link"
+            readonlyOk
+            onSelect={() => {
+              editor.createShapes([
+                { id: createShapeId(), type: "text", props: { text: "Generated Idea" } },
               ]);
             }}
           />
