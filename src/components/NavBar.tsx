@@ -24,7 +24,7 @@ const NavBar: FunctionComponent<NavBarType> = ({ className = "" }) => {
       />
       <div className="absolute top-[19px] right-[106px] w-[610px] h-[50px] flex flex-row items-start justify-start gap-[141px] lg:hidden">
         <button
-          className="cursor-pointer [border:none] p-0 bg-[transparent] w-[168.5px] relative h-[37px]"
+          className="cursor-pointer [border:none] p-0 bg-[transparent] w-[168.5px] relative h-[37px] hover:animate-[1s_ease_0s_1_normal_none_pulsate] hover:opacity-[1]"
           onClick={onLogoutGroupClick}
         >
           <div className="absolute top-[0px] right-[24.5px] text-13xl font-super-easy text-steelblue text-left inline-block w-36 h-[33px]">

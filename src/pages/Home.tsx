@@ -4,7 +4,7 @@ import NavBar from "../components/NavBar";
 
 const Home: FunctionComponent = () => {
   return (
-    <div className="w-full relative h-[982px] overflow-x-auto bg-[url('/public/home@3x.png')] bg-cover bg-no-repeat bg-[top] text-left text-[96px] text-black font-jaldi">
+    <div className="w-full min-h-[100vh] overflow-x-auto overflow-y-auto bg-[url('/public/home@3x.png')] bg-cover bg-no-repeat bg-[top] text-left text-[96px] text-black font-jaldi">
       <Cards />
       <h1 className="m-0 absolute top-[207px] left-[189px] text-inherit font-bold font-inherit inline-block w-[534px] h-[118px]">
         Hello, User!
