@@ -23,24 +23,30 @@ const handleGenerateItems = async (editor, selectedText, generateFunction, numIt
         return;
       }
 
-      const originalShape = selectedShapes[0];
-      console.log('Original shape:', originalShape);
-      const originalPosition = { x: originalShape.x, y: originalShape.y };
-      const originalWidth = originalShape.props.width || 200;
-      const originalHeight = originalShape.props.height || 50;
-      const offsetX = 20;
+      // Find the shape with the maximum width to determine the rightmost edge
+      let maxRightEdge = 0;
+      selectedShapes.forEach(shape => {
+        const rightEdge = shape.x + (shape.props.width || 200);
+        if (rightEdge > maxRightEdge) {
+          maxRightEdge = rightEdge;
+        }
+      });
+
+      // Adding a large margin to the new shapes
+      const margin = 1200;
+      const offsetX = maxRightEdge + margin;
       const offsetY = 50;
 
-      const createShapesPromises = items.map((item, index) => {
+      const newShapes = items.map((item, index) => {
         const position = {
-          x: originalPosition.x + originalWidth + offsetX,
-          y: originalPosition.y + index * (originalHeight + offsetY),
+          x: offsetX,
+          y: selectedShapes[0].y + index * (selectedShapes[0].props.height || 50) + offsetY * index,
         };
 
         console.log('Creating shape at position:', position, 'with text:', item);
         const newTextShapeId = createShapeId();
 
-        return editor.createShapes([
+        editor.createShapes([
           {
             id: newTextShapeId,
             type: 'text',
@@ -49,15 +55,45 @@ const handleGenerateItems = async (editor, selectedText, generateFunction, numIt
             props: { text: item },
           },
         ]);
+
+        return {
+          id: newTextShapeId,
+          position,
+        };
       });
 
-      await Promise.all(createShapesPromises);
-      console.log('All shapes created');
+      console.log('All shapes created:', newShapes);
+
+      // Create arrows connecting the original shapes to the new shapes
+      newShapes.forEach(({ id: newShapeId, position: newPosition }) => {
+        selectedShapes.forEach(selectedShape => {
+          const startX = selectedShape.x + (selectedShape.props.width || 200);
+          const startY = selectedShape.y + (selectedShape.props.height || 50) / 2;
+          const endX = newPosition.x;
+          const endY = newPosition.y + (selectedShape.props.height || 50) / 2;
+
+          console.log('Creating arrow from:', { x: startX, y: startY }, 'to:', { x: endX, y: endY });
+
+          editor.createShapes([
+            {
+              id: createShapeId(),
+              type: 'arrow',
+              props: {
+                start: { x: startX, y: startY },
+                end: { x: endX, y: endY },
+              },
+            },
+          ]);
+          console.log('Created arrow from', selectedShape.id, 'to', newShapeId);
+        });
+      });
     } else {
       console.error('No items generated.');
     }
   } catch (error) {
     console.error('Error generating items:', error);
+  } finally {
+    document.body.classList.remove('loading-cursor'); // Remove loading cursor class
   }
 };
 

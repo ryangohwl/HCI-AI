@@ -7,7 +7,7 @@ const mainColor = "#EFBE7B"
 
 
 const MyChatBot = () => {
-	let apiKey = null;
+	let apiKey = null; // INSERT API KEY HERE
 	let modelType = "gpt-3.5-turbo";
 	let hasError = false;
 
