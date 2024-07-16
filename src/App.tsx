@@ -58,9 +58,9 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/whiteboard" element={<Whiteboard />} />
-      <Route path="/home" element={<Home />} />
+      <Route path='/' element={<Login />} />
+      <Route path='/whiteboard' element={<Whiteboard />} />
+      <Route path='/home' element={<Home />} />
     </Routes>
   );
 }

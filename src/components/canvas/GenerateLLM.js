@@ -98,7 +98,7 @@ export const generateAnswers = async (text, numAnswers) => {
 
 export const generateIdeas = async (text, numIdeas) => {
   const prompt = `
-    Generate a list of ${numIdeas} creative, original, and insightful ideas based on the following text. 
+    Generate a list of ${numIdeas} creative, original, and insightful ideas based on the following text. If not enough context is given, output broad ideas related to the topic instead of just -the provided text has not enough context...
     Each idea should be relevant to the main ideas and themes of the text. Ensure that each idea 
     is unique and addresses different aspects of the content. Provide the ideas in a numbered list format. 
     Separate each idea with a newline and make sure they are easy to parse.\n\n

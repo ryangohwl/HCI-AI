@@ -24,7 +24,7 @@ const CustomContextMenu = (props) => {
   return (
     <div>
       <DefaultContextMenu {...props}>
-        <div style={{ backgroundColor: 'thistle' }}>
+        <div style={{ backgroundColor: '#F07857'}}>
           <TldrawUiMenuItem
             id="generate-questions"
             label="Generate Questions"

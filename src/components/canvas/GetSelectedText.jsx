@@ -28,8 +28,9 @@ const handleGenerateItems = async (editor, selectedText, generateFunction, numIt
       const originalPosition = { x: originalShape.x, y: originalShape.y };
       const originalWidth = originalShape.props.width || 200;
       const originalHeight = originalShape.props.height || 50;
-      const offsetX = 20;
+      const offsetX = 500;
       const offsetY = 50;
+      const fromGenerateShapeId = originalShape.id
 
       const createShapesPromises = items.map((item, index) => {
         const position = {
@@ -39,16 +40,47 @@ const handleGenerateItems = async (editor, selectedText, generateFunction, numIt
 
         console.log('Creating shape at position:', position, 'with text:', item);
         const newTextShapeId = createShapeId();
-
-        return editor.createShapes([
+        const newArrowShapeId = createShapeId();
+        return (editor.createShapes([
           {
             id: newTextShapeId,
             type: 'text',
             x: position.x,
             y: position.y,
             props: { text: item },
-          },
-        ]);
+          }]),
+          editor.createShape({
+            id: newArrowShapeId,
+            type: "arrow",
+            props: {
+              color: "black",
+            },
+            }),
+          editor.createBinding({
+            type: 'arrow',
+            fromId: newArrowShapeId,
+            toId: newTextShapeId,
+            props: {
+              terminal: 'end',
+              normalizedAnchor: { x: 0, y: 0.5 }, // Normalized center position of the shape
+              isExact: true,
+              isPrecise: true
+            }
+            }),
+          
+            // Bind the end of the arrow to the second text shape
+            editor.createBinding({
+            type: 'arrow',
+            fromId: newArrowShapeId,
+            toId: fromGenerateShapeId,
+            props: {
+              terminal: 'start',
+              normalizedAnchor: { x: 1, y: 0.5}, // Normalized center position of the shape
+              isExact: true,
+              isPrecise: true
+            }
+            })
+          )
       });
 
       await Promise.all(createShapesPromises);
@@ -129,3 +161,5 @@ const GetSelectedTexts = track(() => {
 
 export default GetSelectedTexts;
 export { handleGenerateItems };
+
+
