@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     if (action !== "POP") {
       window.scrollTo(0, 0);
-    }
+    } 
   }, [action, pathname]);
 
   useEffect(() => {

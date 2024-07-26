@@ -28,7 +28,7 @@ const handleGenerateItems = async (editor, selectedText, generateFunction, numIt
       const originalPosition = { x: originalShape.x, y: originalShape.y };
       const originalWidth = originalShape.props.width || 200;
       const originalHeight = originalShape.props.height || 50;
-      const offsetX = 500;
+      const offsetX = 1000;
       const offsetY = 50;
       const fromGenerateShapeId = originalShape.id
 
