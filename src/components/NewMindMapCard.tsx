@@ -15,16 +15,18 @@ const NewMindMapCard: FunctionComponent<NewMindMapCardType> = ({
 
   const onNewMindMapClick = useCallback(async () => {
     try {
-      console.log(user_id);
       const response = await axios.get(
         `http://localhost:3000/whiteboard/whiteboards/count/${user_id}`
       );
 
-      console.log(response.data.whiteboardObject);
-
+      console.log(response.data.whiteboardObject._id);
+      console.log(user_id);
       navigate("/whiteboard", {
         replace: true,
-        state: { whiteboardObj: response.data.whiteboardObject },
+        state: {
+          whiteboardId: response.data.whiteboardObject._id,
+          userId: user_id,
+        },
 
         // state: { user: response.data.user },
       });

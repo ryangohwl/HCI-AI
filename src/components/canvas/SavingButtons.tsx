@@ -171,6 +171,8 @@ import {
   useEditor,
 } from "tldraw";
 import "tldraw/tldraw.css";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 // import _jsonSnapshot from "./snapshot.json";
 
 // There's a guide at the bottom of this file!
@@ -179,23 +181,34 @@ import "tldraw/tldraw.css";
 
 // [1]
 
-function SnapshotToolbar() {
+function SnapshotButton() {
   const editor = useEditor();
-  const save = useCallback(() => {
-    // [2]
+  const items = useLocation().state;
+  const boardId = items.whiteboardId;
+  const userId = items.userId;
+  const save = useCallback(async () => {
     const { document, session } = getSnapshot(editor.store);
-    // [3]
-    const save_json = JSON.stringify({ document, session });
 
+    console.log(session);
+    const response = await axios.put(
+      "http://localhost:3000/whiteboard/saveWhiteboard",
+      {
+        document,
+        session,
+        userId,
+        boardId,
+      }
+    );
     //     localStorage.setItem("snapshot", JSON.stringify({ document, session }));
   }, [editor]);
 
-  const load = useCallback(() => {
-    const snapshot = json;
-    if (!snapshot) return;
-
-    // [4]
-    loadSnapshot(editor.store, JSON.parse(snapshot));
+  const load = useCallback(async () => {
+    const response = await axios.get(
+      `http://localhost:3000/whiteboard/loadWhiteboard/${userId}/${boardId}`
+    );
+    const document = JSON.parse(response.data.document);
+    const session = JSON.parse(response.data.session);
+    console.log(document);
   }, [editor]);
 
   const [showCheckMark, setShowCheckMark] = useState(false);
@@ -236,12 +249,12 @@ function SnapshotToolbar() {
       >
         Save Canvas
       </button>
-      {/* <button onClick={load}>Load Snapshot</button> */}
+      <button onClick={load}>Load Snapshot</button>
     </div>
   );
 }
 
-export default SnapshotToolbar;
+export default SnapshotButton;
 // export default function SnapshotExample() {
 //   return (
 //     <div className='tldraw__editor'>

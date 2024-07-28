@@ -3,11 +3,11 @@ import { exportToBlob, Tldraw, useEditor } from 'tldraw'
 import MyChatBot from "../components/chatbot/llm";
 import CustomContextMenu from "../components/canvas/RightClickGenerate";
 import GetSelectedTexts from "../components/canvas/GetSelectedText";
-import SnapshotToolbar from '../components/canvas/SavingButtons'
+import SnapshotButton from '../components/canvas/SavingButtons'
 
 const components = {
 	ContextMenu: CustomContextMenu,
-	SharePanel: SnapshotToolbar,
+	SharePanel: SnapshotButton,
   };
 
 function Whiteboard() {
