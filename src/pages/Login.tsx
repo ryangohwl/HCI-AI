@@ -80,7 +80,7 @@ const Login = () => {
             className='cursor-pointer [border:none] p-0 bg-[transparent] absolute top-[648px] left-[calc(50%_-_119px)] w-[238px] h-[50px]'
             onClick={onLoginButtonClick}
           >
-            <div className='absolute top-[0px] left-[calc(50%_-_119px)] shadow-[4px_4px_4px_rgba(0,_0,_0,_0.1)] rounded-3xs bg-orange w-[238px] h-[50px] hover:bg-darkgoldenrod-100' />
+            <div className='absolute top-[0px] shadow-[4px_4px_4px_rgba(0,_0,_0,_0.1)] rounded-3xs bg-orange w-[238px] h-[50px] hover:bg-darkgoldenrod-100' />
             <b className='absolute top-[4px] left-[calc(50%_-_28px)] text-5xl font-jaldi text-white text-center'>
               Log In
             </b>
@@ -91,5 +91,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;
