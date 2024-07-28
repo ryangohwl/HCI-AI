@@ -7,7 +7,7 @@ import GetImageButton from "../components/canvas/GetImageButton";
 
 const components = {
 	ContextMenu: CustomContextMenu,
-	SharePanel: GetImageButton,
+	SharePanel: GetImageButton
   };
 
 function Whiteboard() {
@@ -18,7 +18,8 @@ function Whiteboard() {
             {/* <Tldraw persistenceKey="Save-Whiteboard" components={components}>
               <GetSelectedTexts />
             </Tldraw> */}
-            <Tldraw components={components}>
+            <Tldraw  persistenceKey="my-persistence-key"
+			components={components}>
               <GetSelectedTexts />
             </Tldraw>
           </div>

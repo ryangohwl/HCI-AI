@@ -3,6 +3,23 @@ import { exportToBlob, Tldraw, useEditor } from 'tldraw'
 function GetImageButton() {
 	const editor = useEditor()
 	return (
+		<>
+		<button 
+        style={{ pointerEvents: 'all', fontSize: 18, 
+            backgroundColor: '#EFBE7B',
+            padding: "10px 30px" ,
+        margin:"100px 10px"}}
+			onClick={async() => {
+				const { document, session } = getSnapshot(editor.store)
+				// If you are building a multi-user app, you probably want to store
+				// the document and session states separately because the
+				// session state is user-specific and normally shouldn't be shared.
+				await saveDocumentState(documentId, document)
+				await saveSessionState(documentId, userId, session)
+			}}
+		>
+			Save Json
+		</button>
 		<button
 			style={{ pointerEvents: 'all', fontSize: 18, 
 				backgroundColor: '#EFBE7B',
@@ -24,8 +41,9 @@ function GetImageButton() {
 				link.click()
 			}}
 		>
-			Save
+			Save Image
 		</button>
+		</>
 	)
 }
 export default GetImageButton
