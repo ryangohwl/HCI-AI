@@ -9,6 +9,7 @@ import "./App.tsx";
 import "./index.tsx";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import ExportCanvasImageExample from "./pages/Whiteboard_test.js";
 
 import Whiteboard from "./pages/Whiteboard.jsx";
 
@@ -20,7 +21,7 @@ function App() {
   useEffect(() => {
     if (action !== "POP") {
       window.scrollTo(0, 0);
-    } 
+    }
   }, [action, pathname]);
 
   useEffect(() => {

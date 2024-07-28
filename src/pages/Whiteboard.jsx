@@ -1,13 +1,24 @@
 import React, { useState } from "react";
-import { Tldraw } from "tldraw";
+import { exportToBlob, Tldraw, useEditor } from 'tldraw'
 import MyChatBot from "../components/chatbot/llm";
-import components from "../components/canvas/RightClickGenerate";
+import CustomContextMenu from "../components/canvas/RightClickGenerate";
 import GetSelectedTexts from "../components/canvas/GetSelectedText";
- function Whiteboard() {
+import GetImageButton from "../components/canvas/GetImageButton";
+
+const components = {
+	ContextMenu: CustomContextMenu,
+	SharePanel: GetImageButton,
+  };
+
+function Whiteboard() {
+  
 	return (
 		<>
           <div style={{ position: 'fixed', inset: 0 }}>
-            <Tldraw persistenceKey="Save-Whiteboard" components={components}>
+            {/* <Tldraw persistenceKey="Save-Whiteboard" components={components}>
+              <GetSelectedTexts />
+            </Tldraw> */}
+            <Tldraw components={components}>
               <GetSelectedTexts />
             </Tldraw>
           </div>

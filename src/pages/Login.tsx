@@ -20,7 +20,10 @@ const Login = () => {
       // Handle successful login here (e.g., redirect, store token)
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
-      if (error.response && error.response.status === 401) {
+      if (
+        (error.response && error.response.status === 401) ||
+        (error.response && error.response.status === 404)
+      ) {
         setError("Incorrect username or password.");
       } else {
         setError("An error occurred. Please try again later.");
