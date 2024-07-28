@@ -1,5 +1,5 @@
 import { FunctionComponent, useCallback, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, redirect } from "react-router-dom";
 import axios from "axios";
 
 export type NewMindMapCardType = {
@@ -20,11 +20,15 @@ const NewMindMapCard: FunctionComponent<NewMindMapCardType> = ({
         `http://localhost:3000/whiteboard/whiteboards/count/${user_id}`
       );
 
-      console.log(`whiteboard created :${response.data.whiteboardCount}`);
+      console.log(response.data.whiteboardObject);
+
       navigate("/whiteboard", {
         replace: true,
+        state: { whiteboardObj: response.data.whiteboardObject },
+
         // state: { user: response.data.user },
       });
+
       // Handle successful login here (e.g., redirect, store token)
     } catch (error) {
       console.error(
