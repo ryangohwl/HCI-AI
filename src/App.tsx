@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     if (action !== "POP") {
       window.scrollTo(0, 0);
-    }
+    } 
   }, [action, pathname]);
 
   useEffect(() => {
@@ -57,12 +57,11 @@ function App() {
   }, [pathname]);
 
   return (
-      <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='/whiteboard' element={<Whiteboard />} />
-        <Route path='/home' element={<Home />} />
-      </Routes>
-
+    <Routes>
+      <Route path='/' element={<Login />} />
+      <Route path='/whiteboard' element={<Whiteboard />} />
+      <Route path='/home' element={<Home />} />
+    </Routes>
   );
 }
 export default App;
