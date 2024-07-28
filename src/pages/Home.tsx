@@ -7,11 +7,11 @@ const Home: FunctionComponent = () => {
   const user = useLocation().state.user;
   const username = user.username;
   const whiteboards = user.whiteboards;
-  console.log(whiteboards);
-  console.log(username);
+  // console.log(user._id);
+
   return (
     <div className="w-full min-h-[100vh] overflow-x-auto overflow-y-auto bg-[url('/public/home@3x.png')] bg-cover bg-no-repeat bg-[top] text-left text-[96px] text-black font-jaldi">
-      <Cards />
+      <Cards user_id={user._id} />
       <h1 className='m-0 absolute top-[207px] left-[189px] text-inherit font-bold font-inherit inline-block  h-[118px]'>
         Hello,!
       </h1>
