@@ -12,7 +12,7 @@ function CreateUser() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userData)
             };
-            const res = await fetch('http://localhost:3000/user', requestOptions)
+            const res = await fetch('http://localhost:3000/user/create', requestOptions)
             // console.log( res.json())
         };
 

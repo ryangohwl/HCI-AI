@@ -15,8 +15,12 @@ const Login = () => {
         username,
         password,
       });
-      console.log("Login success:", response.data);
-      navigate("/home", { replace: true, state: { username: username } });
+
+      console.log("Login success:", response.data.user);
+      navigate("/home", {
+        replace: true,
+        state: { user: response.data.user },
+      });
       // Handle successful login here (e.g., redirect, store token)
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
