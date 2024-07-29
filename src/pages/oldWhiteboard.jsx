@@ -1,4 +1,4 @@
-import React, { useState,useCallback,useEffect } from "react";
+import React, { useState,useCallback,useEffect , useMemo} from "react";
 import { exportToBlob, Tldraw, useEditor, getSnapshot,loadSnapshot } from 'tldraw'
 
 import MyChatBot from "../components/chatbot/llm";
@@ -12,18 +12,24 @@ const components = {
 	SharePanel: SnapshotButton,
   };
 
-export function passDetails() {
-  const items = useLocation().state
-  const userId= items.userId
-  const boardId= items.boardId
-  return { userId, boardId };
-}
+  export function passDetails() {
+    const location = useLocation();
+  
+    const details = useMemo(() => {
+      console.log(location.state); // This will only log once when `location.state` changes
+      const items = location.state;
+      if (!items) return { userId: null, boardId: null };
+  
+      const userId = items.userId;
+      const boardId = items.boardId;
+      return { userId, boardId };
+    }, [location.state]);
+  
+    return details;
+  }
 
 function oldWhiteboard() {
   const items = useLocation().state
-  const boardId = items.oldWhiteboardId;
-  const userId = items.userId;
-  console.log(`here:`+ boardId)
   // const load = useCallback(async () => {
   // const response = await axios.get(
   //     `http://localhost:3000/oldWhiteboard/loadoldWhiteboard/${userId}/${boardId}`
@@ -50,7 +56,6 @@ export default oldWhiteboard
 
 export function SnapshotButton() {
   const {userId, boardId} = passDetails()
-  console.log(userId)
   const editor = useEditor();
   const items = useLocation().state;
 
@@ -83,15 +88,24 @@ export function SnapshotButton() {
     }),
       [editor];
   });
-
   const load = useCallback(async () => {
-    const response = await axios.get(
-      `http://localhost:3000/whiteboard/loadWhiteboard/${userId}/${boardId}`
-    );
-    const document = JSON.parse(response.data.document);
-    const session = JSON.parse(response.data.session);
-    console.log(document);
-  }, [editor]);
+    console.log("hello")
+    const { userId, boardId } = passDetails();
+    console.log(userId)
+    console.log(boardId)
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/whiteboard/loadWhiteboard/${userId}/${boardId}`
+      );
+      const loadedDocument = JSON.parse(response.data.document);
+      const loadedSession = JSON.parse(response.data.session);
+      setDocumentState(loadedDocument);
+      setSessionState(loadedSession);
+    } catch (err) {
+      setError(err);
+      console.error("Error loading whiteboard:", err);
+    }
+  }, [userId, boardId]);
 
   const [showCheckMark, setShowCheckMark] = useState(false);
   useEffect(() => {

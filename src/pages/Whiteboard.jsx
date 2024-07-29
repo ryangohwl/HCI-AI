@@ -18,7 +18,7 @@ function Whiteboard() {
             {/* <Tldraw persistenceKey="Save-Whiteboard" components={components}>
               <GetSelectedTexts />
             </Tldraw> */}
-            <Tldraw  persistenceKey="my-persistence-key"
+            <Tldraw 
 			components={components}>
               <GetSelectedTexts />
             </Tldraw>
