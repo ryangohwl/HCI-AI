@@ -1,50 +1,36 @@
-import React, { useState,useCallback,useEffect , useMemo} from "react";
-import { exportToBlob, Tldraw, useEditor, getSnapshot,loadSnapshot } from 'tldraw'
+import React, { useState, useCallback, useEffect, useMemo } from "react";
+import { exportToBlob, Tldraw, useEditor, getSnapshot, loadSnapshot } from 'tldraw';
 import axios from "axios";
-import _jsonSnapshot from './snapshot.json'
 import MyChatBot from "../components/chatbot/llm";
 import CustomContextMenu from "../components/canvas/RightClickGenerate";
 import GetSelectedTexts from "../components/canvas/GetSelectedText";
-// import SnapshotButton from '../components/canvas/SavingButtons'
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const components = {
-	ContextMenu: CustomContextMenu,
-	SharePanel: SnapshotButton,
-  };
+  ContextMenu: CustomContextMenu,
+  SharePanel: SnapshotButton,
+};
 
-  export function passDetails() {
-    const location = useLocation();
-    console.log("hello")
-    console.log(_jsonSnapshot)
-    const details = useMemo(() => {
+function passDetails() {
+  const location = useLocation();
+  const details = useMemo(() => {
+    const items = location.state;
+    if (!items) return { userId: null, boardId: null };
+    const userId = items.userId;
+    const boardId = items.boardId;
+    return { userId, boardId };
+  }, [location.state]);
 
-      const items = location.state;
-      if (!items) return { userId: null, boardId: null };
-  
-      const userId = items.userId;
-      const boardId = items.boardId;
-      return { userId, boardId };
-      
-    }, [location.state]);
-  
-    return details;
-  }
+  return details;
+}
 
-function oldWhiteboard() {
-  const items = useLocation().state
-  // const load = useCallback(async () => {
-  // const response = await axios.get(
-  //     `http://localhost:3000/oldWhiteboard/loadoldWhiteboard/${userId}/${boardId}`
-  //   );
-  //   const document = JSON.parse(response.data.document);
-  //   const session = JSON.parse(response.data.session);
-  //   console.log(document);
-  // }, [editor]);
+function OldWhiteboard() {
+  const { userId, boardId } = passDetails();
+
   return (
     <>
       <div style={{ position: 'fixed', inset: 0 }}>
-        <Tldraw  components={components}>
+        <Tldraw components={components}>
           <GetSelectedTexts />
         </Tldraw>
       </div>
@@ -55,70 +41,15 @@ function oldWhiteboard() {
   );
 }
 
-export default oldWhiteboard
+export default OldWhiteboard;
 
 export function SnapshotButton() {
-  const {userId, boardId} = passDetails()
+  const navigate = useNavigate();
+  const { userId, boardId } = passDetails();
   const editor = useEditor();
-  const items = useLocation().state;
-  console.log(JSON.stringify())
-  useEffect(async ()=>{
-    load()
-  },[])
-  const save = useCallback(async () => {
-    const shapeIds = editor.getCurrentPageShapeIds();
-    const { document, session } = getSnapshot(editor.store);
-    if (shapeIds.size === 0) return alert("No shapes on the canvas");
-    const blob = await exportToBlob({
-      editor,
-      ids: [...shapeIds],
-      format: "png",
-      opts: { background: false },
-    });
-    const response = await axios.put(
-      "http://localhost:3000/whiteboard/saveWhiteboard",
-      {
-        document,
-        session,
-        userId,
-        boardId
-      }
-    );
-    console.log(response)
-
-    
-  }, [editor]);
-  const load = useCallback(async () => {
-
-    try {
-      const response = await axios.get(
-        `http://localhost:3000/whiteboard/loadWhiteboard/${userId}/${boardId}`
-      );
-
-      const loadedDocument = JSON.parse(response.data.document);
-      console.log(loadedDocument)
-    
-      const loadedSession = JSON.parse(response.data.session);
-      console.log(loadedSession)
-      const snapshot = {
-        document: loadedDocument,  // or {store: loadedDocument.store, schema: loadedDocument.schema}
-        session: loadedSession
-    };
-    const snapshotString = JSON.stringify(snapshot);
-    loadSnapshot(editor.store, JSON.parse(snapshotString));
-    
-
-      // console.log(`snapshot: `+snapshot)
-      // console.log(snapshot)
-      loadSnapshot(editor.store, JSON.parse(snapshot))
-      
-    } catch (err) {
-      setError(err);
-      console.error("Error loading whiteboard:", err);
-    }
-  }, [editor, userId, boardId]);
-
   const [showCheckMark, setShowCheckMark] = useState(false);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     if (showCheckMark) {
       const timeout = setTimeout(() => {
@@ -126,8 +57,55 @@ export function SnapshotButton() {
       }, 1000);
       return () => clearTimeout(timeout);
     }
-    return;
-  });
+  }, [showCheckMark]);
+
+  const save = useCallback(async () => {
+    try {
+      const shapeIds = editor.getCurrentPageShapeIds();
+      if (shapeIds.size === 0) return alert("No shapes on the canvas");
+      const { document, session } = getSnapshot(editor.store);
+      const blob = await exportToBlob({
+        editor,
+        ids: [...shapeIds],
+        format: "png",
+        opts: { background: false },
+      });
+      const response = await axios.put(
+        "http://localhost:3000/whiteboard/saveWhiteboard",
+        {
+          document,
+          session,
+          userId,
+          boardId
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.error("Error saving whiteboard:", err);
+    }
+  }, [editor, userId, boardId]);
+
+  const load = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/whiteboard/loadWhiteboard/${userId}/${boardId}`
+      );
+      const loadedDocument = JSON.parse(response.data.document);
+      const loadedSession = JSON.parse(response.data.session);
+      const snapshot = {
+        document: loadedDocument,
+        session: loadedSession
+      };
+      loadSnapshot(editor.store, snapshot);
+    } catch (err) {
+      setError(err);
+      console.error("Error loading whiteboard:", err);
+    }
+  }, [editor, userId, boardId]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
 
   return (
     <div
@@ -148,6 +126,25 @@ export function SnapshotButton() {
       >
         Saved ✅
       </span>
+      <button
+        onClick={async () => {
+          try {
+            const response = await axios.get(
+              `http://localhost:3000/user/${userId}`
+            );
+            const user = response.data.user;
+            navigate("/home", {
+              replace: true,
+              state: { user: user },
+            });
+          } catch (err) {
+            console.error("Error navigating back:", err);
+          }
+        }}
+        className='absolute left-2 top-10 h-10 w-16 ...'
+      >
+        Back
+      </button>
       <button
         onClick={() => {
           save();
