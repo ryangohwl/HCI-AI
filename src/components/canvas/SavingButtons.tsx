@@ -167,7 +167,8 @@ import {
   TLEditorSnapshot,
   Tldraw,
   getSnapshot,
-  loadSnapshot,
+  exportToBlob,
+  TLUiComponents,
   useEditor,
 } from "tldraw";
 import "tldraw/tldraw.css";
@@ -187,20 +188,36 @@ function SnapshotButton() {
   const boardId = items.whiteboardId;
   const userId = items.userId;
   const save = useCallback(async () => {
+    const shapeIds = editor.getCurrentPageShapeIds();
     const { document, session } = getSnapshot(editor.store);
+    if (shapeIds.size === 0) return alert("No shapes on the canvas");
+    const blob = await exportToBlob({
+      editor,
+      ids: [...shapeIds],
+      format: "png",
+      opts: { background: false },
+    });
 
-    console.log(session);
-    const response = await axios.put(
-      "http://localhost:3000/whiteboard/saveWhiteboard",
-      {
-        document,
-        session,
-        userId,
-        boardId,
-      }
-    );
-    //     localStorage.setItem("snapshot", JSON.stringify({ document, session }));
-  }, [editor]);
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    (reader.onloadend = async () => {
+      const base64data = reader.result;
+      //   console.log(base64data);
+
+      const response = await axios.put(
+        "http://localhost:3000/whiteboard/saveWhiteboard",
+        {
+          document,
+          session,
+          userId,
+          boardId,
+          imageBase64: base64data,
+        }
+      );
+      //     localStorage.setItem("snapshot", JSON.stringify({ document, session }));
+    }),
+      [editor];
+  });
 
   const load = useCallback(async () => {
     const response = await axios.get(

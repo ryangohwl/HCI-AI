@@ -1,13 +1,30 @@
-import { FunctionComponent, useEffect } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import Cards from "../components/Cards";
 import NavBar from "../components/NavBar";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const Home: FunctionComponent = () => {
   const user = useLocation().state.user;
+  const userId = user._id;
   const username = user.username;
   const whiteboards = user.whiteboards;
-  // console.log(user._id);
+  const [lastThreeWhiteboards, setLastThreeWhiteboards] = useState([]);
+
+  useEffect(() => {
+    const fetchLastThreeWhiteboards = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/whiteboard/lastthreewhiteboards/${userId}`
+        );
+        setLastThreeWhiteboards(response.data);
+      } catch (error) {
+        console.error("Error fetching whiteboards:", error);
+      }
+    };
+
+    fetchLastThreeWhiteboards();
+  }, [userId]);
 
   return (
     <div className="w-full min-h-[100vh] overflow-x-auto overflow-y-auto bg-[url('/public/home@3x.png')] bg-cover bg-no-repeat bg-[top] text-left text-[96px] text-black font-jaldi">
