@@ -163,6 +163,7 @@
 
 // export default GetImageButton;
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   TLEditorSnapshot,
   Tldraw,
@@ -173,7 +174,7 @@ import {
 } from "tldraw";
 import "tldraw/tldraw.css";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 // import _jsonSnapshot from "./snapshot.json";
 
 // There's a guide at the bottom of this file!
@@ -211,7 +212,7 @@ function SnapshotButton() {
     const session = JSON.parse(response.data.session);
     console.log(document);
   }, [editor]);
-
+  const navigate = useNavigate();
   const [showCheckMark, setShowCheckMark] = useState(false);
   useEffect(() => {
     if (showCheckMark) {
@@ -251,6 +252,22 @@ function SnapshotButton() {
         Save Canvas
       </button>
       <button onClick={load}>Load Snapshot</button>
+      <button
+        onClick={async () => {
+          const response = await axios.get(
+            `http://localhost:3000/user/${userId}`
+          );
+          const user = response.data.user;
+          console.log(user);
+          navigate("/home", {
+            replace: true,
+            state: { user: user },
+          });
+        }}
+        className='absolute left-2 top-10 h-10 w-16 ...'
+      >
+        Back
+      </button>
     </div>
   );
 }
