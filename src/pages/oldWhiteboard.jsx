@@ -1,5 +1,6 @@
 import React, { useState,useCallback,useEffect , useMemo} from "react";
 import { exportToBlob, Tldraw, useEditor, getSnapshot,loadSnapshot } from 'tldraw'
+import axios from "axios";
 
 import MyChatBot from "../components/chatbot/llm";
 import CustomContextMenu from "../components/canvas/RightClickGenerate";
@@ -16,13 +17,14 @@ const components = {
     const location = useLocation();
   
     const details = useMemo(() => {
-      console.log(location.state); // This will only log once when `location.state` changes
+
       const items = location.state;
       if (!items) return { userId: null, boardId: null };
   
       const userId = items.userId;
       const boardId = items.boardId;
       return { userId, boardId };
+      
     }, [location.state]);
   
     return details;
@@ -89,14 +91,15 @@ export function SnapshotButton() {
       [editor];
   });
   const load = useCallback(async () => {
-    console.log("hello")
-    const { userId, boardId } = passDetails();
+    console.log("load Button Clicked")
     console.log(userId)
     console.log(boardId)
+    console.log("passing to response")
     try {
       const response = await axios.get(
         `http://localhost:3000/whiteboard/loadWhiteboard/${userId}/${boardId}`
       );
+      console.log(response)
       const loadedDocument = JSON.parse(response.data.document);
       const loadedSession = JSON.parse(response.data.session);
       setDocumentState(loadedDocument);
