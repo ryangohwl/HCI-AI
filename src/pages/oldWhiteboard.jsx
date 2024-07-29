@@ -1,7 +1,7 @@
 import React, { useState,useCallback,useEffect , useMemo} from "react";
 import { exportToBlob, Tldraw, useEditor, getSnapshot,loadSnapshot } from 'tldraw'
 import axios from "axios";
-
+import _jsonSnapshot from './snapshot.json'
 import MyChatBot from "../components/chatbot/llm";
 import CustomContextMenu from "../components/canvas/RightClickGenerate";
 import GetSelectedTexts from "../components/canvas/GetSelectedText";
@@ -15,7 +15,8 @@ const components = {
 
   export function passDetails() {
     const location = useLocation();
-  
+    console.log("hello")
+    console.log(_jsonSnapshot)
     const details = useMemo(() => {
 
       const items = location.state;
@@ -60,7 +61,7 @@ export function SnapshotButton() {
   const {userId, boardId} = passDetails()
   const editor = useEditor();
   const items = useLocation().state;
-
+  console.log(JSON.stringify())
   const save = useCallback(async () => {
     const shapeIds = editor.getCurrentPageShapeIds();
     const { document, session } = getSnapshot(editor.store);
@@ -90,10 +91,21 @@ export function SnapshotButton() {
       const response = await axios.get(
         `http://localhost:3000/whiteboard/loadWhiteboard/${userId}/${boardId}`
       );
+
       const loadedDocument = JSON.parse(response.data.document);
+      console.log(loadedDocument)
+    
       const loadedSession = JSON.parse(response.data.session);
-      const snapshot = JSON.stringify({ loadedDocument, loadedSession })
-      console.log(snapshot)
+      console.log(loadedSession)
+      const snapshot = {
+        document: loadedDocument,  // or {store: loadedDocument.store, schema: loadedDocument.schema}
+        session: loadedSession
+    };
+    const snapshotString = JSON.stringify(snapshot);
+    loadSnapshot(editor.store, JSON.parse(snapshotString));
+    
+
+      // console.log(`snapshot: `+snapshot)
       // console.log(snapshot)
       loadSnapshot(editor.store, JSON.parse(snapshot))
       
