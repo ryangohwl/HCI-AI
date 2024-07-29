@@ -5,6 +5,7 @@ export type OldMindMapType = {
 };
 
 const OldMindMap: FunctionComponent<OldMindMapType> = ({ className = "" }) => {
+  
   return (
     <div
       className={`w-[300px] relative h-[300px] text-left text-xl text-black font-jaldi hover:animate-[1s_ease_0s_1_normal_none_shadow-drop-bottom] hover:opacity-[1] ${className}`}
