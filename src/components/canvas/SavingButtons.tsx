@@ -191,8 +191,15 @@ function SnapshotButton() {
     const shapeIds = editor.getCurrentPageShapeIds();
     const { document, session } = getSnapshot(editor.store);
     if (shapeIds.size === 0) return alert("No shapes on the canvas");
-
-    //     localStorage.setItem("snapshot", JSON.stringify({ document, session }));
+    const response = await axios.put(
+      "http://localhost:3000/whiteboard/saveWhiteboard",
+      {
+        document,
+        session,
+        userId,
+        boardId,
+      }
+    );
     [editor];
   });
 
@@ -202,8 +209,7 @@ function SnapshotButton() {
     );
     const document = JSON.parse(response.data.document);
     const session = JSON.parse(response.data.session);
-    const snapshot = JSON.stringify({ document, session });
-    console.log(`snapshot:` + snapshot);
+    console.log(document);
   }, [editor]);
 
   const [showCheckMark, setShowCheckMark] = useState(false);
