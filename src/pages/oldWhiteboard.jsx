@@ -133,6 +133,7 @@ export function SnapshotButton() {
               `http://localhost:3000/user/${userId}`
             );
             const user = response.data.user;
+            save()
             navigate("/home", {
               replace: true,
               state: { user: user },
@@ -153,7 +154,7 @@ export function SnapshotButton() {
       >
         Save Canvas
       </button>
-      <button onClick={load}>Load Snapshot</button>
+      {/* <button onClick={load}>Load Snapshot</button> */}
     </div>
   );
 }

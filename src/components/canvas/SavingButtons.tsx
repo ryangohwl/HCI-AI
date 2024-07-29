@@ -259,6 +259,7 @@ function SnapshotButton() {
           );
           const user = response.data.user;
           console.log(user);
+          save();
           navigate("/home", {
             replace: true,
             state: { user: user },
