@@ -16,7 +16,7 @@ const Login = () => {
         password,
       });
 
-      console.log("Login success:", response.data.user);
+      // console.log("Login success:", response.data.user);
       navigate("/home", {
         replace: true,
         state: { user: response.data.user },
