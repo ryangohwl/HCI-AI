@@ -99,16 +99,24 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
 
   return (
     <div>
-      <button
-        className={`cursor-pointer [border:none] p-0 bg-[transparent] h-[300px] w-[300px] relative [&.animate]:animate-[1s_ease_0s_1_normal_forwards_shadow-drop-bottom] opacity-[1] hover:animate-[1s_ease_0s_1_normal_none_shadow-drop-bottom] hover:opacity-[1] ${className}`}
-        onClick={() => navigate("/")}
+      <div
+        className={`w-[300px] relative h-[300px] text-left text-xl text-black font-jaldi hover:animate-[1s_ease_0s_1_normal_none_shadow-drop-bottom] hover:opacity-[1] ${className}`}
       >
-        <div
-          className={`w-[300px] relative h-[300px] text-left text-xl text-black font-jaldi hover:animate-[1s_ease_0s_1_normal_none_shadow-drop-bottom] hover:opacity-[1] ${className}`}
-        >
-          <div className='absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%]'>
-            <div className='absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-xl bg-lavender' />
-            <div className='absolute h-[74.67%] w-full top-[0%] right-[0%] bottom-[25.33%] left-[0%] rounded-t-xl rounded-b-none max-w-full overflow-hidden max-h-full object-cover'>
+        <div className='absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%]'>
+          <div className='absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-xl bg-lavender' />
+          <div className='absolute h-[74.67%] w-full top-[0%] right-[0%] bottom-[25.33%] left-[0%] rounded-t-xl rounded-b-none max-w-full overflow-hidden max-h-full object-cover'>
+            <button
+              className={`cursor-pointer [border:none] p-0 bg-[transparent] h-[300px] w-[300px] relative [&.animate]:animate-[1s_ease_0s_1_normal_forwards_shadow-drop-bottom] opacity-[1] hover:animate-[1s_ease_0s_1_normal_none_shadow-drop-bottom] hover:opacity-[1] ${className}`}
+              onClick={() =>
+                navigate("/oldWhiteboard", {
+                  replace: true,
+                  state: {
+                    boardId: boardId,
+                    userId: userId,
+                  },
+                })
+              }
+            >
               <div className='absolute top-0 left-0 w-full h-full bg-white'>
                 <div className='z-5555'></div>
               </div>
@@ -123,23 +131,23 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
                   </div>
                 )}
               </div>
-              <div className='z-1'>
-                <Tldraw>
-                  <InsideOfContext />
-                </Tldraw>
-              </div>
+            </button>
+            <div className='z-1'>
+              <Tldraw>
+                <InsideOfContext />
+              </Tldraw>
             </div>
           </div>
-          <div className='absolute  bottom-[0%] left-[0%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-xl bg-lavender' />
-
-          <div className='absolute h-[8%] w-[79.33%] top-[79.67%] left-[4.33%] inline-block z-20'>
-            Name of mind map
-          </div>
-          <div className='absolute h-[6%] w-[44.67%] top-[87.67%] left-[4.33%] text-mini inline-block z-20'>
-            Last Edited: [date]
-          </div>
         </div>
-      </button>
+        <div className='absolute  bottom-[0%] left-[0%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-xl bg-lavender' />
+
+        <div className='absolute h-[8%] w-[79.33%] top-[79.67%] left-[4.33%] inline-block z-20'>
+          Name of mind map
+        </div>
+        <div className='absolute h-[6%] w-[44.67%] top-[87.67%] left-[4.33%] text-mini inline-block z-20'>
+          Last Edited: [date]
+        </div>
+      </div>
     </div>
   );
 };
