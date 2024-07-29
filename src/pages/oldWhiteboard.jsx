@@ -71,44 +71,37 @@ export function SnapshotButton() {
       format: "png",
       opts: { background: false },
     });
+    const response = await axios.put(
+      "http://localhost:3000/whiteboard/saveWhiteboard",
+      {
+        document,
+        session,
+        userId,
+        boardId
+      }
+    );
+    console.log(response)
 
-    const reader = new FileReader();
-    reader.readAsDataURL(blob);
-    (reader.onloadend = async () => {
-      const base64data = reader.result;
-
-      const response = await axios.put(
-        "http://localhost:3000/whiteboard/saveWhiteboard",
-        {
-          document,
-          session,
-          userId,
-          boardId
-        }
-      );
-      //     localStorage.setItem("snapshot", JSON.stringify({ document, session }));
-    }),
-      [editor];
-  });
+    
+  }, [editor]);
   const load = useCallback(async () => {
-    console.log("load Button Clicked")
-    console.log(userId)
-    console.log(boardId)
-    console.log("passing to response")
+
     try {
       const response = await axios.get(
         `http://localhost:3000/whiteboard/loadWhiteboard/${userId}/${boardId}`
       );
-      console.log(response)
       const loadedDocument = JSON.parse(response.data.document);
       const loadedSession = JSON.parse(response.data.session);
-      setDocumentState(loadedDocument);
-      setSessionState(loadedSession);
+      const snapshot = JSON.stringify({ loadedDocument, loadedSession })
+      console.log(snapshot)
+      // console.log(snapshot)
+      loadSnapshot(editor.store, JSON.parse(snapshot))
+      
     } catch (err) {
       setError(err);
       console.error("Error loading whiteboard:", err);
     }
-  }, [userId, boardId]);
+  }, [editor, userId, boardId]);
 
   const [showCheckMark, setShowCheckMark] = useState(false);
   useEffect(() => {

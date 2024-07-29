@@ -188,43 +188,11 @@ function SnapshotButton() {
   const boardId = items.whiteboardId;
   const userId = items.userId;
   const save = useCallback(async () => {
+    const shapeIds = editor.getCurrentPageShapeIds();
     const { document, session } = getSnapshot(editor.store);
-    console.log(session);
-    const response = await axios.put(
-      "http://localhost:3000/whiteboard/saveWhiteboard",
-      {
-        document,
-        session,
-        userId,
-        boardId,
-      }
-    );
-    // const shapeIds = editor.getCurrentPageShapeIds();
-    // const { document, session } = getSnapshot(editor.store);
-    // if (shapeIds.size === 0) return alert("No shapes on the canvas");
-    // const blob = await exportToBlob({
-    //   editor,
-    //   ids: [...shapeIds],
-    //   format: "png",
-    //   opts: { background: false },
-    // });
+    if (shapeIds.size === 0) return alert("No shapes on the canvas");
 
-    // const reader = new FileReader();
-    // reader.readAsDataURL(blob);
-    // (reader.onloadend = async () => {
-    //   const base64data = reader.result;
-
-    //   const response = await axios.put(
-    //     "http://localhost:3000/whiteboard/saveWhiteboard",
-    //     {
-    //       document,
-    //       session,
-    //       userId,
-    //       boardId
-    //     }
-    //   );
-    //   //     localStorage.setItem("snapshot", JSON.stringify({ document, session }));
-    // }),
+    //     localStorage.setItem("snapshot", JSON.stringify({ document, session }));
     [editor];
   });
 
@@ -234,7 +202,8 @@ function SnapshotButton() {
     );
     const document = JSON.parse(response.data.document);
     const session = JSON.parse(response.data.session);
-    console.log(document);
+    const snapshot = JSON.stringify({ document, session });
+    console.log(`snapshot:` + snapshot);
   }, [editor]);
 
   const [showCheckMark, setShowCheckMark] = useState(false);
