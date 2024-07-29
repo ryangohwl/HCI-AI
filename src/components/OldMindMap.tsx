@@ -27,7 +27,6 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
   const navigate = useNavigate();
   const load = useCallback(async () => {
     try {
-      console.log("Loading whiteboard data...");
       const response = await axios.get(
         `http://localhost:3000/whiteboard/loadWhiteboard/${userId}/${boardId}`
       );
@@ -35,7 +34,6 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
       const loadedSession = JSON.parse(response.data.session);
       setDocumentState(loadedDocument);
       setSessionState(loadedSession);
-      console.log("Whiteboard data loaded.");
     } catch (err) {
       setError(err);
       console.error("Error loading whiteboard:", err);
@@ -48,7 +46,7 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
   const renderImage = useCallback(async (editor) => {
     try {
       if (!editor) return;
-      console.log("Rendering image...");
+
       const shapeIds = editor.getCurrentPageShapeIds();
       const blob = await exportToBlob({
         editor,
@@ -56,11 +54,9 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
         format: "png",
         opts: { background: false },
       });
-      console.log("Blob created:", blob);
 
       const url = window.URL.createObjectURL(blob);
       setImageUrl(url);
-      console.log("Image URL set:", url);
     } catch (error) {
       console.error("Error in renderImage:", error);
     }
@@ -76,7 +72,6 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
         sessionState &&
         !imageRenderedRef.current
       ) {
-        console.log("Loading snapshot into editor...");
         loadSnapshot(editor.store, {
           document: documentState,
           session: sessionState,
@@ -142,7 +137,7 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
         <div className='absolute  bottom-[0%] left-[0%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-xl bg-lavender' />
 
         <div className='absolute h-[8%] w-[79.33%] top-[79.67%] left-[4.33%] inline-block z-20'>
-          Name of mind map
+          {boardId}
         </div>
         <div className='absolute h-[6%] w-[44.67%] top-[87.67%] left-[4.33%] text-mini inline-block z-20'>
           Last Edited: [date]

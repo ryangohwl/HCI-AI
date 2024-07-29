@@ -1,5 +1,6 @@
 import React, { useState,useCallback,useEffect } from "react";
-import { exportToBlob, Tldraw, useEditor } from 'tldraw'
+import { exportToBlob, Tldraw, useEditor, getSnapshot,loadSnapshot } from 'tldraw'
+
 import MyChatBot from "../components/chatbot/llm";
 import CustomContextMenu from "../components/canvas/RightClickGenerate";
 import GetSelectedTexts from "../components/canvas/GetSelectedText";
@@ -52,6 +53,7 @@ export function SnapshotButton() {
   console.log(userId)
   const editor = useEditor();
   const items = useLocation().state;
+
   const save = useCallback(async () => {
     const shapeIds = editor.getCurrentPageShapeIds();
     const { document, session } = getSnapshot(editor.store);
