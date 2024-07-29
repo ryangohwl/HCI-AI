@@ -62,6 +62,9 @@ export function SnapshotButton() {
   const editor = useEditor();
   const items = useLocation().state;
   console.log(JSON.stringify())
+  useEffect(async ()=>{
+    load()
+  },[])
   const save = useCallback(async () => {
     const shapeIds = editor.getCurrentPageShapeIds();
     const { document, session } = getSnapshot(editor.store);
