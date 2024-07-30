@@ -17,12 +17,17 @@ export function useGetArrows() {
                 const shapeId = shape[0].id
                 const {document, session} = getSnapshot(editor.store)
                 const store = document.store
+            
                 const getAllABindings = () =>{
+                    const bindings = []
                     for(let key in store) {
-                        console.log(key)
                         if (store.hasOwnProperty(key) && key.startsWith('binding')){
-                            console.log("exists")
+                            bindings.push(key)
+                            
+                            console.log(bindings)
                         }
+                    if (bindings.length ===0) {
+                    }
                     }
                 }
                 getAllABindings()
