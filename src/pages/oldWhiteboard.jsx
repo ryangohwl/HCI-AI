@@ -1,10 +1,18 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
-import { exportToBlob, Tldraw, useEditor, getSnapshot, loadSnapshot } from 'tldraw';
+import {
+  exportToBlob,
+  Tldraw,
+  useEditor,
+  getSnapshot,
+  loadSnapshot,
+} from "tldraw";
 import axios from "axios";
 import MyChatBot from "../components/chatbot/llm";
 import CustomContextMenu from "../components/canvas/RightClickGenerate";
 import GetSelectedTexts from "../components/canvas/GetSelectedText";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useGetArrows } from "../components/canvas/sharedComps";
+
 
 const components = {
   ContextMenu: CustomContextMenu,
@@ -29,12 +37,12 @@ export default function OldWhiteboard() {
 
   return (
     <>
-      <div style={{ position: 'fixed', inset: 0 }}>
+      <div style={{ position: "fixed", inset: 0 }}>
         <Tldraw components={components}>
           <GetSelectedTexts />
         </Tldraw>
       </div>
-      <div className="chatbot">
+      <div className='chatbot'>
         <MyChatBot />
       </div>
     </>
@@ -49,6 +57,8 @@ export function SnapshotButton() {
   const editor = useEditor();
   const [showCheckMark, setShowCheckMark] = useState(false);
   const [error, setError] = useState(null);
+  const handleGetSelectedShapes = useGetArrows()
+
 
   useEffect(() => {
     if (showCheckMark) {
@@ -71,17 +81,15 @@ export function SnapshotButton() {
         opts: { background: false },
       });
 
-
       const response = await axios.put(
         "http://localhost:3000/whiteboard/saveWhiteboard",
         {
           document,
           session,
           userId,
-          boardId
+          boardId,
         }
       );
-
     } catch (err) {
       console.error("Error saving whiteboard:", err);
     }
@@ -96,7 +104,7 @@ export function SnapshotButton() {
       const loadedSession = JSON.parse(response.data.session);
       const snapshot = {
         document: loadedDocument,
-        session: loadedSession
+        session: loadedSession,
       };
       loadSnapshot(editor.store, snapshot);
     } catch (err) {
@@ -131,12 +139,12 @@ export function SnapshotButton() {
       <button
         onClick={async () => {
           try {
-            console.log(userId)
+            console.log(userId);
             const response = await axios.get(
               `http://localhost:3000/user/${userId}`
             );
             const user = response.data.user;
-            await save()
+            await save();
             navigate("/home", {
               replace: true,
               state: { user: user },
@@ -145,19 +153,27 @@ export function SnapshotButton() {
             console.error("Error navigating back:", err);
           }
         }}
-        className='absolute left-2 top-10 h-10 w-16 ...'
+        className=' text-white bg-blue-700 hover:bg-blue-800  absolute left-2 top-12 h-10 w-16 rounded-full px-4 py-2 text-3xl font-bold'
       >
         Back
       </button>
       <button
-        onClick={ async() => {
+        className='text-white bg-blue-700 hover:bg-blue-800 absolute top-2 right-2 text-3xl font-bold px-4 py-2 rounded-full'
+        onClick={async () => {
           await save();
           setShowCheckMark(true);
         }}
+        x
       >
         Save Canvas
       </button>
-      {/* <button onClick={load}>Load Snapshot</button> */}
+
+      <button
+        onClick={handleGetSelectedShapes}
+        className='text-white bg-blue-700 hover:bg-blue-800 absolute top-2 right-30 text-3xl font-bold px-4 py-2 rounded-full'
+      >
+        Load Snapshot
+      </button>
     </div>
   );
 }

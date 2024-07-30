@@ -135,6 +135,7 @@ export function SnapshotButton() {
         Saved ✅
       </span>
       <button
+      className=" text-white bg-blue-700 hover:bg-blue-800  absolute left-2 top-12 h-10 w-16 rounded-full px-4 py-2 text-3xl font-bold"
         onClick={async () => {
           const response = await axios.get(
             `http://localhost:3000/user/${userId}`
@@ -148,11 +149,12 @@ export function SnapshotButton() {
             });
 
         }}
-        className='absolute left-2 top-10 h-10 w-16 ...'
+        
       >
         Back
       </button>
       <button
+      className="text-white bg-blue-700 hover:bg-blue-800 absolute top-2 right-2 text-3xl font-bold px-4 py-2 rounded-full"
         onClick={ async() => {
           await save();
           setShowCheckMark(true);
