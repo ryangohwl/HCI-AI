@@ -45,14 +45,14 @@ function Whiteboard() {
         gap: "10px",
       }}
     >
-      <button
+      {/* <button
         onClick={() => {
-          save();
+          // save();
           setShowCheckMark(true);
         }}
       >
         Save Canvas
-      </button>
+      </button> */}
       <div style={{ position: 'fixed', inset: 0 }}>
         <Tldraw components={components}>
           <GetSelectedTexts />

@@ -210,7 +210,6 @@ function SnapshotButton() {
     );
     const document = JSON.parse(response.data.document);
     const session = JSON.parse(response.data.session);
-    console.log(document);
   }, [editor]);
   const navigate = useNavigate();
   const [showCheckMark, setShowCheckMark] = useState(false);
@@ -251,19 +250,20 @@ function SnapshotButton() {
       >
         Save Canvas
       </button>
-      <button onClick={load}>Load Snapshot</button>
+      {/* <button onClick={load}>Load Snapshot</button> */}
       <button
         onClick={async () => {
+          save();
+
           const response = await axios.get(
             `http://localhost:3000/user/${userId}`
           );
-          const user = response.data.user;
-          console.log(user);
-          save();
-          navigate("/home", {
-            replace: true,
-            state: { user: user },
-          });
+          console.log(response.data);
+          // const user = response.data.user;
+          // navigate("/home", {
+          //   replace: true,
+          //   state: { user: user },
+          // });
         }}
         className='absolute left-2 top-10 h-10 w-16 ...'
       >

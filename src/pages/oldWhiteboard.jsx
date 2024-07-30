@@ -61,7 +61,7 @@ export function SnapshotButton() {
 
   const save = useCallback(async () => {
     try {
-      const shapeIds = editor.getCurrentPageShapeIds();
+      const shapeIds = await editor.getCurrentPageShapeIds();
       if (shapeIds.size === 0) return alert("No shapes on the canvas");
       const { document, session } = getSnapshot(editor.store);
       const blob = await exportToBlob({
@@ -70,6 +70,12 @@ export function SnapshotButton() {
         format: "png",
         opts: { background: false },
       });
+      console.log("here")
+      console.log(document)
+      console.log(session)
+      console.log(userId)
+      console.log(boardId)
+
       const response = await axios.put(
         "http://localhost:3000/whiteboard/saveWhiteboard",
         {
@@ -79,7 +85,7 @@ export function SnapshotButton() {
           boardId
         }
       );
-      console.log(response);
+
     } catch (err) {
       console.error("Error saving whiteboard:", err);
     }
@@ -133,7 +139,9 @@ export function SnapshotButton() {
               `http://localhost:3000/user/${userId}`
             );
             const user = response.data.user;
-            save()
+
+            await save()
+            console.log("save successful")
             navigate("/home", {
               replace: true,
               state: { user: user },
@@ -147,8 +155,8 @@ export function SnapshotButton() {
         Back
       </button>
       <button
-        onClick={() => {
-          save();
+        onClick={ async() => {
+          await save();
           setShowCheckMark(true);
         }}
       >
