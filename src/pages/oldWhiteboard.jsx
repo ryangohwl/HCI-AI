@@ -24,7 +24,7 @@ function passDetails() {
   return details;
 }
 
-function OldWhiteboard() {
+export default function OldWhiteboard() {
   const { userId, boardId } = passDetails();
 
   return (
@@ -41,7 +41,7 @@ function OldWhiteboard() {
   );
 }
 
-export default OldWhiteboard;
+
 
 export function SnapshotButton() {
   const navigate = useNavigate();
@@ -70,11 +70,7 @@ export function SnapshotButton() {
         format: "png",
         opts: { background: false },
       });
-      console.log("here")
-      console.log(document)
-      console.log(session)
-      console.log(userId)
-      console.log(boardId)
+
 
       const response = await axios.put(
         "http://localhost:3000/whiteboard/saveWhiteboard",
@@ -135,13 +131,12 @@ export function SnapshotButton() {
       <button
         onClick={async () => {
           try {
+            console.log(userId)
             const response = await axios.get(
               `http://localhost:3000/user/${userId}`
             );
             const user = response.data.user;
-
             await save()
-            console.log("save successful")
             navigate("/home", {
               replace: true,
               state: { user: user },

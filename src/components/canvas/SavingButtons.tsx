@@ -188,21 +188,37 @@ function SnapshotButton() {
   const items = useLocation().state;
   const boardId = items.whiteboardId;
   const userId = items.userId;
+
   const save = useCallback(async () => {
-    const shapeIds = editor.getCurrentPageShapeIds();
-    const { document, session } = getSnapshot(editor.store);
-    if (shapeIds.size === 0) return alert("No shapes on the canvas");
-    const response = await axios.put(
-      "http://localhost:3000/whiteboard/saveWhiteboard",
-      {
-        document,
-        session,
-        userId,
-        boardId,
-      }
-    );
-    [editor];
-  });
+    try {
+      const shapeIds = await editor.getCurrentPageShapeIds();
+      if (shapeIds.size === 0) return alert("No shapes on the canvas");
+      const { document, session } = getSnapshot(editor.store);
+      const blob = await exportToBlob({
+        editor,
+        ids: [...shapeIds],
+        format: "png",
+        opts: { background: false },
+      });
+      console.log("here");
+      console.log(document);
+      console.log(session);
+      console.log(userId);
+      console.log(boardId);
+
+      const response = await axios.put(
+        "http://localhost:3000/whiteboard/saveWhiteboard",
+        {
+          document,
+          session,
+          userId,
+          boardId,
+        }
+      );
+    } catch (err) {
+      console.error("Error saving whiteboard:", err);
+    }
+  }, [editor, userId, boardId]);
 
   const load = useCallback(async () => {
     const response = await axios.get(
@@ -243,8 +259,8 @@ function SnapshotButton() {
         Saved ✅
       </span>
       <button
-        onClick={() => {
-          save();
+        onClick={async () => {
+          await save();
           setShowCheckMark(true);
         }}
       >
@@ -258,12 +274,12 @@ function SnapshotButton() {
           const response = await axios.get(
             `http://localhost:3000/user/${userId}`
           );
-          console.log(response.data);
-          // const user = response.data.user;
-          // navigate("/home", {
-          //   replace: true,
-          //   state: { user: user },
-          // });
+
+          const user = response.data.user;
+          navigate("/home", {
+            replace: true,
+            state: { user: user },
+          });
         }}
         className='absolute left-2 top-10 h-10 w-16 ...'
       >
