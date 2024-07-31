@@ -30,21 +30,21 @@ const CustomContextMenu = (props) => {
             label="Generate Questions"
             icon="external-link"
             readonlyOk
-            onSelect={() => handleGenerate(generateQuestions, 10)}
+            onSelect={() => handleGenerate(generateQuestions, 6)}
           />
           <TldrawUiMenuItem
             id="generate-answers"
             label="Generate Answers"
             icon="external-link"
             readonlyOk
-            onSelect={() => handleGenerate(generateAnswers, 10)}
+            onSelect={() => handleGenerate(generateAnswers, 6)}
           />
           <TldrawUiMenuItem
             id="generate-ideas"
             label="Generate Ideas"
             icon="external-link"
             readonlyOk
-            onSelect={() => handleGenerate(generateIdeas, 10)}
+            onSelect={() => handleGenerate(generateIdeas, 6)}
           />
         </div>
         <DefaultContextMenuContent />

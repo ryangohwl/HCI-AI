@@ -153,9 +153,9 @@ export function SnapshotButton() {
             console.error("Error navigating back:", err);
           }
         }}
-        className=' text-white bg-blue-700 hover:bg-blue-800  absolute left-2 top-12 h-10 w-16 rounded-full px-4 py-2 text-3xl font-bold'
+      className=" text-white bg-blue-700 hover:bg-blue-800  absolute left-2 bottom-36 h-10 w-30 rounded-full px-4 py-2 text-3xl font-bold"
       >
-        Back
+        Back to Home
       </button>
       <button
         className='text-white bg-blue-700 hover:bg-blue-800 absolute top-2 right-2 text-3xl font-bold px-4 py-2 rounded-full'

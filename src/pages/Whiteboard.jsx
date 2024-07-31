@@ -1,6 +1,5 @@
 
-import React from "react";
-import { Tldraw } from "@tldraw/tldraw";
+
 import React, { useState } from "react";
 import { Tldraw, useEditor, getSnapshot } from 'tldraw';
 import { useNavigate } from "react-router-dom";
@@ -146,7 +145,7 @@ export function SnapshotButton() {
         Saved ✅
       </span>
       <button
-      className=" text-white bg-blue-700 hover:bg-blue-800  absolute left-2 top-12 h-10 w-16 rounded-full px-4 py-2 text-3xl font-bold"
+      className=" text-white bg-blue-700 hover:bg-blue-800  absolute left-2 bottom-36 h-10 w-30 rounded-full px-4 py-2 text-3xl font-bold"
         onClick={async () => {
           const response = await axios.get(
             `http://localhost:3000/user/${userId}`
@@ -162,7 +161,7 @@ export function SnapshotButton() {
         }}
         
       >
-        Back
+        Back to Home
       </button>
       <button
       className="text-white bg-blue-700 hover:bg-blue-800 absolute top-2 right-2 text-3xl font-bold px-4 py-2 rounded-full"
