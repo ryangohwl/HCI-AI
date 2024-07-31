@@ -6,7 +6,7 @@ export function useGetArrows() {
   const [currentTextObj, setCurrentTextObj] = useState("");
   const [currentBindings, setCurrentBindings] = useState([]);
 
-  const [contextStringArray, setContextStringArray] = useState ([])
+  const contextStringArray = []
   const editor = useEditor();
   const isFirstRender = useRef(true);
   const { document, session } = getSnapshot(editor.store);
@@ -16,57 +16,73 @@ export function useGetArrows() {
     for (let key in store) {
         
       if (store.hasOwnProperty(key) && key.startsWith("binding")) {
-        newBindings.push({ "id": store[key].id, "toId": store[key].toId, "fromId": store[key].fromId });
+        newBindings.push({ "id": store[key].id, "bindtoarrowid": store[key].toId, "bindtotextid": store[key].fromId });
         
       }
     
     }
     
     return newBindings
+
   }
     
+//   useEffect(() => {
+//     // your existing logic...
+//     console.log(contextStringArray);  // Logs each time useEffect runs, showing accumulation of values
+//   }, [currentTextObj]);
+//     //Get all content bindings
+//   useEffect(() => {
+//     // console.log(currentTextObj)
+//     // console.log(`current text obj` + currentTextObj)
+//     const allBindings = getAllBindings()
+//     // console.log(allBindings[1])
+//     for (let index in allBindings) {
+//         const binding = allBindings[index]
+        
+//         // compare the initial text object with the bindingid
+//         if (currentTextObj === binding.bindtotextid){
+//             //setting the correct binding if connected to initial text object
+//             const bindedToCurrentTextId = binding
+//             //getting the arrow id from the binding
+//             const bindedArrowIdToCurrentText = bindedToCurrentTextId.bindtoarrowid
+//             // console.log(bindedArrowIdToCurrentText)
 
-    //Get all content bindings
-  useEffect(() => {
-    // console.log(`current text obj` + currentTextObj)
-    const allBindings = getAllBindings()
-    for (let index in allBindings) {
-        const binding = allBindings[index]
-        if (currentTextObj === binding.toId){
-            const bindedToCurrentTextId = binding
-            const bindedArrowIdToCurrentText = bindedToCurrentTextId.fromId
-            console.log(`arrow object`+editor.getShape(bindedArrowIdToCurrentText)
-        )
-            for (let indextwo in allBindings){
-                const bindingtwo = allBindings[indextwo]
-                if (bindedArrowIdToCurrentText === bindingtwo.fromId){
-                    const bindedToCurrentArrow = bindingtwo
-                    const bindedTextIdToArrow = bindedToCurrentArrow.toId
-                    const nextText = editor.getShape(bindedTextIdToArrow)
-                    if (nextText.type !== "text") {
-                        
-                        console.log('end of map')
-                    }
-                    else {
-                        setContextString()
-                        console.log(nextText.props.text)
-                        setCurrentTextObj(nextText)
-                    }
+//             for (let indextwo in allBindings){
+//                 const bindingtwo = allBindings[indextwo]
+//                 // console.log(bindingtwo)
+//                 // console.log(bindingtwo)
+//                 if ((bindedArrowIdToCurrentText === bindingtwo.bindtoarrowid) && (bindedToCurrentTextId!=bindingtwo.id) ){
+//                     const bindedToCurrentArrow = bindingtwo
+                    
+//                     const bindedTextIdToArrow = bindedToCurrentArrow.bindtotextid
+//                     console.log(bindedTextIdToArrow)
+//                     const nextText = editor.getShape(bindedTextIdToArrow)
+//                     // console.log(nextText)
+//                     if (nextText.type === "text") {
+//                         contextStringArray.push(nextText.props.text)
+//                         console.log(nextText.props.text)
+//                         // console.log(contextStringArray)
+//                         setCurrentTextObj(nextText.id)
 
-                 }
-            }
-            // const bindedArrowToCurrentText = editor
-            // console.log(store[bindedArrowsToCurrentText])
-            // const startOfArrow = store
-            // console.log(bindedArrowsToCurrentText)
+//                     }
+//                     else {
+//                         console.log('map')
+//                     }
+
+//                  }
+//             }
+//             // const bindedArrowToCurrentText = editor
+//             // console.log(store[bindedArrowsToCurrentText])
+//             // const startOfArrow = store
+//             // console.log(bindedArrowsToCurrentText)
             
-            // console.log(`arrowId connected to current text:`+allBindings[binding])
-            // const relevantArrow= allBindings[binding]
-            // console.log(relevantArrow)
-            // console.log(`text connected to currentText` +relevantArrow.key.fromId)
-        }
-      }
-    },[currentTextObj])
+//             // console.log(`arrowId connected to current text:`+allBindings[binding])
+//             // const relevantArrow= allBindings[binding]
+//             // console.log(relevantArrow)
+//             // console.log(`text connected to currentText` +relevantArrow.key.fromId)
+//         }
+//       }
+//     },[currentTextObj])
 
 
     // sets all the bindings on the board
@@ -87,9 +103,10 @@ export function useGetArrows() {
         alert("Can only generate from texts!");
       }
     }
+    return contextStringArray
   }
 
-  return validShape;
+  return (validShape);
 }
 
 // import React from 'react'

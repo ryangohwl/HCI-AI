@@ -167,13 +167,23 @@ export function SnapshotButton() {
       >
         Save Canvas
       </button>
+      {/* <button
+      className=" text-white bg-blue-700 hover:bg-blue-800  absolute left-20 top-12 h-10 w-16 rounded-full px-4 py-2 text-3xl font-bold"
+        onClick={async () => {
+          console.log(editor.getShape(editor.getSelectedShapeIds()[0]))
 
-      <button
+        }}
+        
+      >
+        get shape
+      </button> */}
+
+      {/* <button
         onClick={handleGetSelectedShapes}
         className='text-white bg-blue-700 hover:bg-blue-800 absolute top-2 right-30 text-3xl font-bold px-4 py-2 rounded-full'
       >
         Load Snapshot
-      </button>
+      </button> */}
     </div>
   );
 }
