@@ -3,6 +3,7 @@ import { Tldraw } from "tldraw";
 import MyChatBot from "../components/chatbot/llm";
 import components from "../components/canvas/RightClickGenerate";
 import GetSelectedTexts from "../components/canvas/GetSelectedText";
+
  function Whiteboard() {
 	return (
 		<>
@@ -13,7 +14,6 @@ import GetSelectedTexts from "../components/canvas/GetSelectedText";
           </div>
           <div className="chatbot">
             <MyChatBot />
-            
           </div>
         </>
 	)

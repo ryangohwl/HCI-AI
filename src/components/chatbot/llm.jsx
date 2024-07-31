@@ -1,91 +1,84 @@
-import ChatBot from "react-chatbotify";
-import OpenAI from "openai";
-
 import React, { useState } from 'react';
+import ChatBot from 'react-chatbotify';
+import OpenAI from 'openai';
+import Draggable from 'react-draggable';
+import styles from './chatbot.module.css';
 
-const mainColor = "#EFBE7B"
-
+const mainColor = "#EFBE7B";
 
 const MyChatBot = () => {
-	let apiKey = null; // add api key here
-	let modelType = "gpt-4";
-	let hasError = false;
+  const [apiKey, setApiKey] = useState(null); // Use state to handle apiKey
+  const modelType = "gpt-4";
+  const [hasError, setHasError] = useState(false);
 
-	// example openai conversation
-	// you can replace with other LLMs such as Google Gemini
-	const call_openai = async (params) => {
-		try {
-			const openai = new OpenAI({
-				apiKey: apiKey,
-				dangerouslyAllowBrowser: true // required for testing on browser side, not recommended
-			});
+  const callOpenAI = async (params) => {
+    try {
+      const openai = new OpenAI({
+        apiKey: apiKey,
+        dangerouslyAllowBrowser: true // Required for testing on browser side, not recommended for production
+      });
 
-			// for streaming responses in parts (real-time), refer to real-time stream example
-			const chatCompletion = await openai.chat.completions.create({
-				// conversation history is not shown in this example as message length is kept to 1
-				messages: [{ role: 'user', content: params.userInput }],
-				model: modelType,
-			});
+      const chatCompletion = await openai.chat.completions.create({
+        messages: [{ role: 'user', content: params.userInput }],
+        model: modelType,
+      });
 
-			await params.injectMessage(chatCompletion.choices[0].message.content);
-		} catch (error) {
-			await params.injectMessage("Unable to load model, is your API Key valid?");
-			hasError = true;
-		}
-	}
-	const flow={
+      await params.injectMessage(chatCompletion.choices[0].message.content);
+    } catch (error) {
+      await params.injectMessage("Unable to load model, is your API Key valid?");
+      setHasError(true);
+    }
+  };
 
-        options: {
-            openChat: {isOpen:false}
-        },
-        
+  const flow = {
+    options: {
+      openChat: { isOpen: false }
+    },
+    start: {
+      message: "Ask me anything",
+      path: "loop",
+      isSensitive: false
+    },
+    loop: {
+      message: async (params) => {
+        await callOpenAI(params);
+      },
+      path: () => (hasError ? "start" : "loop")
+    }
+  };
 
+  const buttonConfig = {
+    headerStyle: { background: mainColor },
+    tooltipStyle: { background: mainColor },
+    botBubbleStyle: { background: mainColor },
+    chatHistory: { storageKey: "example_llm_conversation" },
+    chatButton: { icon: "/capybara@2x.png" },
+    tooltip: { text: "Ask Me Anything!😊" },
+    botBubble: { showAvatar: true, avatar: "/capybara@2x.png" },
+    header: {
+      avatar: "/capybara@2x.png",
+      title: "Capybara",
+    }
+  };
 
-		start: {
-			message: "Ask me anything",
-			path: "loop",
-			isSensitive: false
-		},
-		// api_key: {
-		// 	message: (params) => {
-		// 		apiKey = params.userInput.trim();
-		// 		return "Ask me anything!";
-		// 	},
-		// 	path: "loop",
-		// },
-		loop: {
-			message: async (params) => {
-				await call_openai(params);
-			},
-			path: () => {
-				if (hasError) {
-					return "start"
-				}
-				return "loop"
-			}
-		}
-	}
+  const onDrag = (e, data) => {
+    // Prevent movement beyond the 40vh height constraint
+    if (data.y < window.innerHeight - (window.innerHeight * 0.4)) {
+      data.y = window.innerHeight - (window.innerHeight * 0.4);
+    }
+  };
 
-	const buttonConfig ={
-		headerStyle:{background: mainColor},
-		tooltipStyle:{background: mainColor},
-		botBubbleStyle:{background: mainColor},
-		chatHistory: {storageKey: "example_llm_conversation"},
-		chatButton: {icon: "/capybara@2x.png"},
-		tooltip: {text: "Ask Me Anything!😊 "},
-		botBubble:{showAvatar: true ,avatar: "/capybara@2x.png"},
-		header: {
-			avatar: "/capybara@2x.png",
-			 title: "Capybara" ,
-		}
-			 
-		}
-
-	return (
-		// options={{openChat: {isOpen:false}, theme: {embedded: true}, chatHistory: {storageKey: "example_llm_conversation"}}}
-		<ChatBot  options={buttonConfig} flow={flow}/>
-
-	);
+  return (
+    <Draggable
+      defaultPosition={{ x: window.innerWidth - 10, y: window.innerHeight - 50}}
+      bounds={{ top: 0, left: 0, right: window.innerWidth, bottom: window.innerHeight }}
+      onDrag={onDrag}
+    >
+      <div className={styles.chatbot}>
+        <ChatBot options={buttonConfig} flow={flow} />
+      </div>
+    </Draggable>
+  );
 };
 
 export default MyChatBot;

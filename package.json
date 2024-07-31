@@ -23,6 +23,7 @@
     "react-chatbot-kit": "^2.2.2",
     "react-chatbotify": "^1.7.0",
     "react-dom": "^18.3.1",
+    "react-draggable": "^4.4.6",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.1",
