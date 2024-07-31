@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiKey = null; // INSERT API KEY
+const apiKey = "sk-proj-JRM5XmmFzcekmwI4Z02AT3BlbkFJT6i6LZK44itK2KH3FKyV"; // INSERT API KEY
 
 export const generateQuestions = async (text, numQuestions) => {
   const prompt = `

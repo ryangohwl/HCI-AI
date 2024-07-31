@@ -54,8 +54,6 @@ const CustomContextMenu = (props) => {
   );
 };
 
-const components = {
-  ContextMenu: CustomContextMenu,
-};
 
-export default components;
+
+export default CustomContextMenu;
