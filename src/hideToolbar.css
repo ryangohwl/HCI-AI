@@ -1,0 +1,24 @@
+/* src/hideToolbar.css */
+.tlui-toolbar__overflow {
+    display: none !important;
+  }
+
+.tlui-button[data-testid="tools.draw"] {
+    display: none !important;
+  }
+
+.tlui-style-panel__section {
+  display: none !important;
+}
+
+.tlui-debug-panel{
+  display: none !important;
+}
+
+.tlui-help-menu{
+    display: none !important;
+}
+
+.tlui-button__menu.tlui-menu__submenu__trigger {
+    display: none !important;
+  }

@@ -1,9 +1,15 @@
+
+import React from "react";
+import { Tldraw } from "@tldraw/tldraw";
 import React, { useState } from "react";
 import { Tldraw, useEditor, getSnapshot } from 'tldraw';
 import { useNavigate } from "react-router-dom";
 import MyChatBot from "../components/chatbot/llm";
 import CustomContextMenu from "../components/canvas/RightClickGenerate";
 import GetSelectedTexts from "../components/canvas/GetSelectedText";
+
+import "../hideToolbar.css"; // Import the CSS file with the correct path
+
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useMemo,useEffect, useCallback } from "react";
@@ -15,9 +21,11 @@ const components = {
 };
 
 
+
 function Whiteboard() {
   return (
     <>
+
     <div
       style={{
         padding: 20,
@@ -36,14 +44,17 @@ function Whiteboard() {
       </button> */}
       <div style={{ position: 'fixed', inset: 0 }}>
         <Tldraw components={components}>
+
           <GetSelectedTexts />
         </Tldraw>
       </div>
       <div className="chatbot">
         <MyChatBot />
       </div>
+
       
       </div>
+
     </>
   );
 }
@@ -166,3 +177,4 @@ export function SnapshotButton() {
     </div>
   );
 }
+
