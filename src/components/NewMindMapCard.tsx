@@ -32,12 +32,7 @@ const NewMindMapCard: FunctionComponent<NewMindMapCardType> = ({
       });
 
       // Handle successful login here (e.g., redirect, store token)
-    } catch (error) {
-      console.error(
-        "Create Whiteboard Failed:",
-        error.response?.data || error.message
-      );
-    }
+    } catch (error) {}
   }, []);
 
   useEffect(() => {

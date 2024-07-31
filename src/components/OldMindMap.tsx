@@ -34,16 +34,13 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
       const loadedSession = JSON.parse(response.data.session);
       setDocumentState(loadedDocument);
       setSessionState(loadedSession);
-    } catch (err) {
-      setError(err);
-      console.error("Error loading whiteboard:", err);
-    }
+    } catch (err) {}
   }, [userId, boardId]);
 
   useEffect(() => {
     load();
   }, [load]);
-  const renderImage = useCallback(async (editor) => {
+  const renderImage = useCallback(async (editor: any) => {
     try {
       if (!editor) return;
 
