@@ -22,21 +22,11 @@ const Login = () => {
         state: { user: response.data.user },
       });
       // Handle successful login here (e.g., redirect, store token)
-    } catch (error) {
-      console.error("Login failed:", error.response?.data || error.message);
-      if (
-        (error.response && error.response.status === 401) ||
-        (error.response && error.response.status === 404)
-      ) {
-        setError("Incorrect username or password.");
-      } else {
-        setError("An error occurred. Please try again later.");
-      }
-    }
+    } catch (error) {}
   }, [username, password, navigate]);
 
   const handleKeyDown = useCallback(
-    (event) => {
+    (event: any) => {
       if (event.key === "Enter") {
         onLoginButtonClick();
       }

@@ -22,7 +22,7 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
   const [documentState, setDocumentState] = useState(null);
   const [sessionState, setSessionState] = useState(null);
   const [error, setError] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
   const imageRenderedRef = useRef(false); // Ref to track if the image has been rendered
   const navigate = useNavigate();
   const load = useCallback(async () => {
