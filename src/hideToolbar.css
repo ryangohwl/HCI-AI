@@ -7,9 +7,43 @@
     display: none !important;
   }
 
-.tlui-style-panel__section {
-  display: none !important;
-}
+/* First */
+.tlui-button[data-testid="style.fill.none"] {
+    display: none;
+  }
+
+.tlui-button[data-testid="style.fill.semi"] {
+    display: none;
+  }
+
+.tlui-button[data-testid="style.fill.solid"] {
+    display: none;
+  }
+
+.tlui-button[data-testid="style.fill.pattern"] {
+    display: none;
+  }
+
+/* Second Grid */
+.tlui-button[data-testid="style.dash.draw"] {
+    display: none;
+  }
+
+.tlui-button[data-testid="style.dash.dashed"] {
+    display: none;
+  }
+
+.tlui-button[data-testid="style.dash.dotted"] {
+    display: none;
+  }
+
+.tlui-button[data-testid="style.dash.solid"] {
+    display: none;
+  }
+
+.tlui-slider[data-testid="style.opacity"] {
+    display: none;
+  }
 
 .tlui-debug-panel{
   display: none !important;
@@ -21,4 +55,8 @@
 
 .tlui-button__menu.tlui-menu__submenu__trigger {
     display: none !important;
+  }
+
+  .tlui-button[data-testid="actions-menu.button"] {
+    display: none;
   }
