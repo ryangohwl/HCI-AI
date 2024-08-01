@@ -162,7 +162,7 @@ export function SnapshotButton() {
           alert("whiteboard saved successfully!");
           setShowCheckMark(true);
         }}
-
+        
       >
         Save Canvas
       </button>

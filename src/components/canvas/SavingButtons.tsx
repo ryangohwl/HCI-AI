@@ -223,9 +223,7 @@ function SnapshotButton() {
 
   const load = useCallback(async () => {
     const response = await axios.get(
-      `${
-        import.meta.env.VITE_BASE_URL
-      }/whiteboard/loadWhiteboard/${userId}/${boardId}`
+      `${import.meta.env.VITE_BASE_URL}/whiteboard/loadWhiteboard/${userId}/${boardId}`
     );
     const document = JSON.parse(response.data.document);
     const session = JSON.parse(response.data.session);
