@@ -11,10 +11,13 @@ const Login = () => {
   const onLoginButtonClick = useCallback(async () => {
     console.log(`${username}, ${password}`);
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/user/login`, {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        `https://hci-ai-api.onrender.com/user/login`,
+        {
+          username,
+          password,
+        }
+      );
 
       // console.log("Login success:", response.data.user);
       navigate("/home", {
