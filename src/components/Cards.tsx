@@ -26,7 +26,7 @@ const Cards: FunctionComponent<CardsType> = ({ className = "", user_id }) => {
     const fetchLastThreeWhiteboards = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/whiteboard/lastthreewhiteboards/${userId}`
+          `{}}/${userId}`
         );
         setLastThreeWhiteboards(response.data.displayBoards); // Make sure your API matches this data structure
       } catch (error) {

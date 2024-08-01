@@ -175,6 +175,7 @@ import {
 import "tldraw/tldraw.css";
 import axios from "axios";
 import { Navigate, useLocation } from "react-router-dom";
+
 // import _jsonSnapshot from "./snapshot.json";
 
 // There's a guide at the bottom of this file!
@@ -207,7 +208,7 @@ function SnapshotButton() {
       console.log(boardId);
 
       const response = await axios.put(
-        "http://localhost:3000/whiteboard/saveWhiteboard",
+        `${process.env.REACT_APP_API_BASE_URL}/whiteboard/saveWhiteboard`,
         {
           document,
           session,
@@ -222,7 +223,7 @@ function SnapshotButton() {
 
   const load = useCallback(async () => {
     const response = await axios.get(
-      `http://localhost:3000/whiteboard/loadWhiteboard/${userId}/${boardId}`
+      `${process.env.REACT_APP_API_BASE_URL}/whiteboard/loadWhiteboard/${userId}/${boardId}`
     );
     const document = JSON.parse(response.data.document);
     const session = JSON.parse(response.data.session);
@@ -272,7 +273,7 @@ function SnapshotButton() {
           save();
 
           const response = await axios.get(
-            `http://localhost:3000/user/${userId}`
+            `${process.env.REACT_APP_API_BASE_URL}/user/${userId}`
           );
 
           const user = response.data.user;

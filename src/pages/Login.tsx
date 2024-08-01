@@ -11,7 +11,7 @@ const Login = () => {
   const onLoginButtonClick = useCallback(async () => {
     console.log(`${username}, ${password}`);
     try {
-      const response = await axios.post("http://localhost:3000/user/login", {
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/user/login`, {
         username,
         password,
       });
