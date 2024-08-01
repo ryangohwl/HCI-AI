@@ -223,7 +223,9 @@ function SnapshotButton() {
 
   const load = useCallback(async () => {
     const response = await axios.get(
-      `${import.meta.env.VITE_BASE_URL}/whiteboard/loadWhiteboard/${userId}/${boardId}`
+      `${
+        import.meta.env.VITE_BASE_URL
+      }/whiteboard/loadWhiteboard/${userId}/${boardId}`
     );
     const document = JSON.parse(response.data.document);
     const session = JSON.parse(response.data.session);
@@ -250,6 +252,7 @@ function SnapshotButton() {
       }}
     >
       <span
+        className='relative top-6 left-12'
         style={{
           display: "inline-block",
           transition: "transform 0.2s ease, opacity 0.2s ease",

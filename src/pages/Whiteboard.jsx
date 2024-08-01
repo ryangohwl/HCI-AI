@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import MyChatBot from "../components/chatbot/llm";
 import CustomContextMenu from "../components/canvas/RightClickGenerate";
 import GetSelectedTexts from "../components/canvas/GetSelectedText";
-
+import ToolTip from "../components/canvas/ToolTip";
 import "../hideToolbar.css"; // Import the CSS file with the correct path
 
 import axios from "axios";
@@ -128,14 +128,16 @@ export function SnapshotButton() {
   return (
     <div
       style={{
-        padding: 20,
         pointerEvents: "all",
         display: "flex",
         gap: "10px",
+        width:300,
+        height:50
       }}
     >
-      <span
+      <span className="relative top-4 left-7 text-5xl"
         style={{
+          
           display: "inline-block",
           transition: "transform 0.2s ease, opacity 0.2s ease",
           transform: showCheckMark ? `scale(1)` : `scale(0.5)`,
@@ -164,7 +166,7 @@ export function SnapshotButton() {
         Back to Home
       </button>
       <button
-      className="text-white bg-blue-700 hover:bg-blue-800 absolute top-2 right-2 text-3xl font-bold px-4 py-2 rounded-full"
+      className="text-white bg-blue-700 hover:bg-blue-800 absolute top-4 right-2 text-3xl font-bold px-10 py-2 rounded-full"
         onClick={ async() => {
           await save();
           setShowCheckMark(true);
@@ -172,6 +174,7 @@ export function SnapshotButton() {
       >
         Save Canvas
       </button>
+
       {/* <button onClick={load}>Load Snapshot</button> */}
     </div>
   );

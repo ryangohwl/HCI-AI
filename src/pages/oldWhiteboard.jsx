@@ -117,20 +117,23 @@ export function SnapshotButton() {
   return (
     <div
       style={{
-        padding: 20,
         pointerEvents: "all",
         display: "flex",
         gap: "10px",
+        width:300,
+        height:50
       }}
     >
-      			<span
-				style={{
-					display: 'inline-block',
-					transition: 'transform 0.2s ease, opacity 0.2s ease',
-					transform: showCheckMark ? `scale(1)` : `scale(0.5)`,
-					opacity: showCheckMark ? 1 : 0,
-				}}
-			>
+      <span className="relative top-4 left-7 text-5xl"
+        style={{
+          
+          display: "inline-block",
+          transition: "transform 0.2s ease, opacity 0.2s ease",
+          transform: showCheckMark ? `scale(1)` : `scale(0.5)`,
+          opacity: showCheckMark ? 1 : 0,
+        }}
+      >
+		
 				Saved ✅
 			</span>
     
@@ -156,13 +159,12 @@ export function SnapshotButton() {
         Back to Home
       </button>
       <button
-        className='text-white bg-blue-700 hover:bg-blue-800 absolute top-2 right-2 text-3xl font-bold px-4 py-2 rounded-full'
-        onClick={() => {
-          save();
-          alert("whiteboard saved successfully!");
+        className="text-white bg-blue-700 hover:bg-blue-800 absolute top-4 right-2 text-3xl font-bold px-10 py-2 rounded-full"
+        onClick={ async() => {
+          await save();
           setShowCheckMark(true);
         }}
-        
+
       >
         Save Canvas
       </button>
