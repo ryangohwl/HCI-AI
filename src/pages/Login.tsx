@@ -26,7 +26,9 @@ const Login = () => {
         state: { user: response.data.user },
       });
       // Handle successful login here (e.g., redirect, store token)
-    } catch (error) {}
+    } catch (error) {
+      setError("Wrong username or password.");
+    }
   }, [username, password, navigate]);
 
   const handleKeyDown = useCallback(
