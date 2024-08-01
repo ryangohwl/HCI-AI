@@ -12,7 +12,7 @@ const Login = () => {
     console.log(`${username}, ${password}`);
     try {
       const response = await axios.post(
-        `https://hci-ai-api.onrender.com/user/login`,
+        `${process.env.REACT_APP_API_BASE_URL}/user/login`,
         {
           username,
           password,
