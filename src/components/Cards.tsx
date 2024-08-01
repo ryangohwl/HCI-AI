@@ -21,12 +21,7 @@ const Cards: FunctionComponent<CardsType> = ({ className = "", user_id }) => {
     Whiteboard[]
   >([]);
   const [boardIds, setBoardIds] = useState<string[]>([]);
-  useEffect(
-    () => {
-      console.log(boardIds);
-    },
-    { setBoardIds }
-  );
+
   useEffect(() => {
     const fetchLastThreeWhiteboards = async () => {
       try {
@@ -55,7 +50,6 @@ const Cards: FunctionComponent<CardsType> = ({ className = "", user_id }) => {
       className={`absolute top-[448px] left-[calc(50%_-_682.5px)] flex flex-row flex-wrap items-center justify-center gap-[55px] text-left text-xl text-black font-jaldi lg:flex-row lg:flex-wrap lg:items-center lg:justify-center md:flex-col md:items-center md:justify-center ${className}`}
     >
       <NewMindMapCard user_id={user_id} />
-      {/* console.log(id) */}
       {boardIds.map((id, index) => (
         <OldMindMap key={index} idKey={index} boardId={id} userId={user_id} />
       ))}
