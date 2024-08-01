@@ -1,5 +1,5 @@
 import { FC, ReactNode, useRef } from "react";
-
+import { useEditor } from "tldraw";
 interface Props {
   children: ReactNode;
   tooltip?: string;

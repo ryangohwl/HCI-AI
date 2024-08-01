@@ -1,7 +1,7 @@
 
 
 import React, { useState } from "react";
-import { Tldraw, useEditor, getSnapshot } from 'tldraw';
+import { Tldraw, useEditor, getSnapshot, ToggleLockMenuItem } from 'tldraw';
 import { useNavigate } from "react-router-dom";
 import MyChatBot from "../components/chatbot/llm";
 import CustomContextMenu from "../components/canvas/RightClickGenerate";
@@ -20,8 +20,8 @@ const components = {
 };
 
 
-
 function Whiteboard() {
+  
   return (
     <>
 
@@ -41,14 +41,20 @@ function Whiteboard() {
       >
         Save Canvas
       </button> */}
+
       <div style={{ position: 'fixed', inset: 0 }}>
+
         <Tldraw components={components}>
 
           <GetSelectedTexts />
         </Tldraw>
+
       </div>
+
       <div className="chatbot">
+
         <MyChatBot />
+
       </div>
 
       
