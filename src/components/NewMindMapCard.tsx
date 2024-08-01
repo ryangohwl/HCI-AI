@@ -16,7 +16,9 @@ const NewMindMapCard: FunctionComponent<NewMindMapCardType> = ({
   const onNewMindMapClick = useCallback(async () => {
     try {
       const response = await axios.get(
-        `https://hci-ai-api.onrender.com/whiteboard/whiteboards/count/${user_id}`
+        `${
+          import.meta.env.VITE_BASE_URL
+        }/whiteboard/whiteboards/count/${user_id}`
       );
 
       console.log(response.data.whiteboardObject._id);

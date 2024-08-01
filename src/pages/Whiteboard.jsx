@@ -97,7 +97,7 @@ export function SnapshotButton() {
       if (shapeIds.size === 0) {
         console.log("hello")
         try{
-        const response = await axios.delete(`https://hci-ai-api.onrender.com/whiteboard/deleteWhiteboard/${userId}/${boardId}`)
+        const response = await axios.delete(`${import.meta.env.VITE_BASE_URL}/whiteboard/deleteWhiteboard/${userId}/${boardId}`)
         }
         catch (error) {
           console.error("error deleting whiteboard",err)
@@ -107,7 +107,7 @@ export function SnapshotButton() {
       const { document, session } = getSnapshot(editor.store);
       //CHECKED
       const response = await axios.put(
-        `https://hci-ai-api.onrender.com/whiteboard/saveWhiteboard`,
+        `${import.meta.env.VITE_BASE_URL}/whiteboard/saveWhiteboard`,
         {
           document,
           session,
@@ -148,7 +148,7 @@ export function SnapshotButton() {
       className=" text-white bg-blue-700 hover:bg-blue-800  absolute left-2 bottom-36 h-10 w-30 rounded-full px-4 py-2 text-3xl font-bold"
         onClick={async () => {
           const response = await axios.get(
-            `https://hci-ai-api.onrender.com/user/${userId}`
+            `${import.meta.env.VITE_BASE_URL}/user/${userId}`
           );
           const user = response.data.user;
 

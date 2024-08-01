@@ -9,10 +9,11 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const onLoginButtonClick = useCallback(async () => {
+    console.log(import.meta.env.VITE_BASE_URL);
     console.log(`${username}, ${password}`);
     try {
       const response = await axios.post(
-        `https://hci-ai-api.onrender.com/user/login`,
+        `${import.meta.env.VITE_BASE_URL}/user/login`,
         {
           username,
           password,

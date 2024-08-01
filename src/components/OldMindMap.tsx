@@ -12,12 +12,14 @@ export type OldMindMapType = {
   className?: string;
   boardId: string;
   userId: string;
+  idKey: number;
 };
 
 const OldMindMap: FunctionComponent<OldMindMapType> = ({
   className = "",
   boardId,
   userId,
+  idKey,
 }) => {
   const [documentState, setDocumentState] = useState(null);
   const [sessionState, setSessionState] = useState(null);
@@ -28,7 +30,9 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
   const load = useCallback(async () => {
     try {
       const response = await axios.get(
-        `https://hci-ai-api.onrender.com/whiteboard/loadWhiteboard/${userId}/${boardId}`
+        `${
+          import.meta.env.VITE_BASE_URL
+        }/whiteboard/loadWhiteboard/${userId}/${boardId}`
       );
       const loadedDocument = JSON.parse(response.data.document);
       const loadedSession = JSON.parse(response.data.session);
@@ -82,11 +86,11 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
   }
 
   if (error) {
-    return <div>Error loading whiteboard.</div>;
+    return <div></div>;
   }
 
   if (!documentState || !sessionState) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   return (
@@ -134,7 +138,7 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
         <div className='absolute  bottom-[0%] left-[0%] shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] rounded-xl bg-lavender' />
 
         <div className='absolute h-[8%] w-[79.33%] top-[79.67%] left-[4.33%] inline-block z-20'>
-          {boardId}
+          Whiteboard: {idKey + 1}
         </div>
         <div className='absolute h-[6%] w-[44.67%] top-[87.67%] left-[4.33%] text-mini inline-block z-20'>
           Last Edited: [date]
