@@ -5,7 +5,7 @@ import axios from 'axios'
 function Test() {    
     useEffect(() => {
         const fetchUser = async () => {
-            const response = await axios.get('http://localhost:3000/user/66a3bb91b1e3a7dcc42876d0');
+            const response = await axios.get('https://hci-ai-api.onrender.com/user/66a3bb91b1e3a7dcc42876d0');
             // console.log(response)
 
         };
