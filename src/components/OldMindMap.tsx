@@ -28,7 +28,7 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
   const load = useCallback(async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/whiteboard/loadWhiteboard/${userId}/${boardId}`
+        `${process.env.REACT_APP_API_BASE_URL}/whiteboard/loadWhiteboard/${userId}/${boardId}`
       );
       const loadedDocument = JSON.parse(response.data.document);
       const loadedSession = JSON.parse(response.data.session);
