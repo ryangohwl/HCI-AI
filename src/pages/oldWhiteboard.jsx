@@ -60,26 +60,24 @@ export function SnapshotButton() {
   const handleGetSelectedShapes = useGetArrows()
 
 
-  useEffect(() => {
-    if (showCheckMark) {
-      const timeout = setTimeout(() => {
-        setShowCheckMark(false);
-      }, 1000);
-      return () => clearTimeout(timeout);
-    }
-  }, [showCheckMark]);
+	useEffect(() => {
+		if (showCheckMark) {
+			const timeout = setTimeout(() => {
+				setShowCheckMark(false)
+			}, 1000)
+			return () => clearTimeout(timeout)
+		}
+		return
+	})
+
+  
 
   const save = useCallback(async () => {
     try {
       const shapeIds = await editor.getCurrentPageShapeIds();
       if (shapeIds.size === 0) return alert("No shapes on the canvas");
       const { document, session } = getSnapshot(editor.store);
-      const blob = await exportToBlob({
-        editor,
-        ids: [...shapeIds],
-        format: "png",
-        opts: { background: false },
-      });
+
 
       const response = await axios.put(
         `${import.meta.env.VITE_BASE_URL}/whiteboard/saveWhiteboard`,
@@ -108,6 +106,7 @@ export function SnapshotButton() {
       };
       loadSnapshot(editor.store, snapshot);
     } catch (err) {
+
     }
   }, [editor, userId, boardId]);
 
@@ -124,16 +123,17 @@ export function SnapshotButton() {
         gap: "10px",
       }}
     >
-      <span
-        style={{
-          display: "inline-block",
-          transition: "transform 0.2s ease, opacity 0.2s ease",
-          transform: showCheckMark ? `scale(1)` : `scale(0.5)`,
-          opacity: showCheckMark ? 1 : 0,
-        }}
-      >
-        Saved ✅
-      </span>
+      			<span
+				style={{
+					display: 'inline-block',
+					transition: 'transform 0.2s ease, opacity 0.2s ease',
+					transform: showCheckMark ? `scale(1)` : `scale(0.5)`,
+					opacity: showCheckMark ? 1 : 0,
+				}}
+			>
+				Saved ✅
+			</span>
+    
       <button
         onClick={async () => {
           try {
@@ -157,11 +157,12 @@ export function SnapshotButton() {
       </button>
       <button
         className='text-white bg-blue-700 hover:bg-blue-800 absolute top-2 right-2 text-3xl font-bold px-4 py-2 rounded-full'
-        onClick={async () => {
-          await save();
+        onClick={() => {
+          save();
+          alert("whiteboard saved successfully!");
           setShowCheckMark(true);
         }}
-        x
+
       >
         Save Canvas
       </button>
