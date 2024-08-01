@@ -7,7 +7,7 @@ const mainColor = "#EFBE7B"
 
 
 const MyChatBot = () => {
-	let apiKey = "sk-proj-LxT6gLbn7WIbGPU9O5yRT3BlbkFJKPCYtDn7zNlWK8ANCx2F"; // add api key here
+	let apiKey = "sk-proj-KgV9CaNxKKcdiN3icTP0T3BlbkFJUyhDwVNbPuu0jgmwWXJe"; // add api key here
 	let modelType = "gpt-4";
 	let hasError = false;
 
