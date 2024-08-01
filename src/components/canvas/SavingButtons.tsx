@@ -208,7 +208,7 @@ function SnapshotButton() {
       console.log(boardId);
 
       const response = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/whiteboard/saveWhiteboard`,
+        `https://hci-ai-api.onrender.com/whiteboard/saveWhiteboard`,
         {
           document,
           session,
@@ -223,7 +223,7 @@ function SnapshotButton() {
 
   const load = useCallback(async () => {
     const response = await axios.get(
-      `${process.env.REACT_APP_API_BASE_URL}/whiteboard/loadWhiteboard/${userId}/${boardId}`
+      `https://hci-ai-api.onrender.com/whiteboard/loadWhiteboard/${userId}/${boardId}`
     );
     const document = JSON.parse(response.data.document);
     const session = JSON.parse(response.data.session);
@@ -273,7 +273,7 @@ function SnapshotButton() {
           save();
 
           const response = await axios.get(
-            `${process.env.REACT_APP_API_BASE_URL}/user/${userId}`
+            `https://hci-ai-api.onrender.com/user/${userId}`
           );
 
           const user = response.data.user;

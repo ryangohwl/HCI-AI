@@ -28,7 +28,7 @@ const OldMindMap: FunctionComponent<OldMindMapType> = ({
   const load = useCallback(async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/whiteboard/loadWhiteboard/${userId}/${boardId}`
+        `https://hci-ai-api.onrender.com/whiteboard/loadWhiteboard/${userId}/${boardId}`
       );
       const loadedDocument = JSON.parse(response.data.document);
       const loadedSession = JSON.parse(response.data.session);

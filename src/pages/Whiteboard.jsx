@@ -97,7 +97,7 @@ export function SnapshotButton() {
       if (shapeIds.size === 0) {
         console.log("hello")
         try{
-        const response = await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/whiteboard/deleteWhiteboard/${userId}/${boardId}`)
+        const response = await axios.delete(`https://hci-ai-api.onrender.com/whiteboard/deleteWhiteboard/${userId}/${boardId}`)
         }
         catch (error) {
           console.error("error deleting whiteboard",err)
@@ -107,7 +107,7 @@ export function SnapshotButton() {
       const { document, session } = getSnapshot(editor.store);
       //CHECKED
       const response = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/whiteboard/saveWhiteboard`,
+        `https://hci-ai-api.onrender.com/whiteboard/saveWhiteboard`,
         {
           document,
           session,
