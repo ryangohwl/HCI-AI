@@ -14,7 +14,7 @@ export const generateQuestions = async (text, numQuestions) => {
     - questions encourage creative or alternative thinking.
     - questions should focus on managing the discussion or thinking process.
   Ensure each question or insight is unique and addresses different aspects of the content. Format the questions as a numbered list, separated by a newline and easy to parse.
-  There is no need to state which hat is being used
+  Do not need to state which hat is being used.
   Text: "${text}"\n\n
   Questions:\n
   1.
@@ -111,8 +111,8 @@ export const generateIdeas = async (text, numIdeas) => {
     - Ideas look at the benefits or positive aspects.  
     - Ideas encourage creative or alternative thinking.
     - Ideas should focus on managing the discussion or thinking process.
-  Ensure each question or insight is unique and addresses different aspects of the content. Format the ideas as a numbered list, separated by a newline and easy to parse.
-  There is no need to state which hat is being used
+  Ensure each idea is unique and addresses different aspects of the content. Format the ideas as a numbered list, separated by a newline and easy to parse.
+  Do not need to state which hat is being used.
   Text: "${text}"\n\n
   Questions:\n
   1.

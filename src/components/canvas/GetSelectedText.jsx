@@ -47,7 +47,7 @@ const handleGenerateItems = async (editor, selectedText, generateFunction, numIt
             type: 'text',
             x: position.x,
             y: position.y,
-            props: { text: item, w:300, autoSize:false, w: 800},
+            props: { text: item, w:300, autoSize:false, w: 1100},
           }]),
           editor.createShape({
             id: newArrowShapeId,

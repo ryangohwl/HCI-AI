@@ -1,4 +1,4 @@
-/* src/hideTooltip.css */
 .rcb-chat-tooltip {
-    display: none !important;
-  }
+  display: block; /* Ensure it starts visible */
+}
+
