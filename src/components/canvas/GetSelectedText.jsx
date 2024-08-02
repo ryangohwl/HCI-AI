@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { track, useEditor } from 'tldraw';
 import { generateQuestions, generateAnswers, generateIdeas } from './GenerateLLM';
-import { createShapeId } from '@tldraw/tldraw';
-
+import { createShapeId } from 'tldraw';
 // Function to handle generating items and positioning them
 const handleGenerateItems = async (editor, selectedText, generateFunction, numItems) => {
   console.log('Generating items for selected text:', selectedText);
@@ -102,6 +101,7 @@ const GetSelectedTexts = track(() => {
 		editor.getSelectedShapes().map((shape) =>
 			console.log(shape.props)
 		);
+    console.log(editor.getCurrentPageShapes()[0].type)
 	}
   // Function to update selected text
   const updateSelectedText = () => {
@@ -112,6 +112,7 @@ if (editor.getSelectedShapes().length > 0) {
 		editor.getSelectedShapes().map((shape) =>
 			console.log(shape.props.text)
 		);
+    
 	}
     // console.log('Updating selected text from selectedTexts:', selectedTextsArray);
     if (selectedTextsArray.length > 0) {
