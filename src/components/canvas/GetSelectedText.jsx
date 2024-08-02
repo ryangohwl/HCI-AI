@@ -28,8 +28,8 @@ const handleGenerateItems = async (editor, selectedText, generateFunction, numIt
       const originalPosition = { x: originalShape.x, y: originalShape.y };
       const originalWidth = originalShape.props.width || 200;
       const originalHeight = originalShape.props.height || 50;
-      const offsetX = 500;
-      const offsetY = 50;
+      const offsetX = 1000;
+      const offsetY = 100;
       const fromGenerateShapeId = originalShape.id
 
       const createShapesPromises = items.map((item, index) => {
@@ -47,7 +47,7 @@ const handleGenerateItems = async (editor, selectedText, generateFunction, numIt
             type: 'text',
             x: position.x,
             y: position.y,
-            props: { text: item },
+            props: { text: item, w:300, autoSize:false, w: 1100},
           }]),
           editor.createShape({
             id: newArrowShapeId,
@@ -98,14 +98,22 @@ const GetSelectedTexts = track(() => {
   const editor = useEditor();
   const [selectedText, setSelectedText] = useState('');
   const [selectedTexts, setSelectedTexts] = useState([]);
-
+  if (editor.getSelectedShapes().length > 0) {
+		editor.getSelectedShapes().map((shape) =>
+			console.log(shape.props)
+		);
+	}
   // Function to update selected text
   const updateSelectedText = () => {
     const selectedTextsArray = editor.getSelectedShapes()
       .filter(shape => shape.type === 'text' && shape.props && shape.props.text)
       .map(shape => shape.props.text);
-
-    console.log('Updating selected text from selectedTexts:', selectedTextsArray);
+if (editor.getSelectedShapes().length > 0) {
+		editor.getSelectedShapes().map((shape) =>
+			console.log(shape.props.text)
+		);
+	}
+    // console.log('Updating selected text from selectedTexts:', selectedTextsArray);
     if (selectedTextsArray.length > 0) {
       setSelectedText(selectedTextsArray.join(' '));
       setSelectedTexts(selectedTextsArray);  // Update the selectedTexts state
@@ -113,7 +121,7 @@ const GetSelectedTexts = track(() => {
     } else {
       setSelectedText('');
       setSelectedTexts([]);  // Clear the selectedTexts state
-      console.log('Selected text cleared');
+      // console.log('Selected text cleared');
     }
   };
 
@@ -139,12 +147,12 @@ const GetSelectedTexts = track(() => {
   useEffect(() => {
     if (!editor) return;
 
-    console.log('Adding event listeners');
+    // console.log('Adding event listeners');
     editor.on('pointerdown', handleClick);
     editor.on('selectionchange', updateSelectedText);
 
     return () => {
-      console.log('Removing event listeners');
+      // console.log('Removing event listeners');
       editor.off('pointerdown', handleClick);
       editor.off('selectionchange', updateSelectedText);
     };

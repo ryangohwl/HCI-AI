@@ -1,18 +1,23 @@
 import axios from 'axios';
 
-const apiKey = null; // INSERT API KEY
+
+const apiKey = import.meta.env.VITE_OPENAI_KEY; // INSERT API KEY
 
 export const generateQuestions = async (text, numQuestions) => {
   const prompt = `
-    Generate a list of ${numQuestions} short, clear, and insightful questions based on the following text. 
-    Each question should be relevant to the main ideas and themes of the text. Aim for questions that 
-    encourage critical thinking and further exploration of the topics discussed. Ensure that each question 
-    is unique and addresses different aspects of the content. Use the 5W1H framework (Who, What, When, Where, Why, and How) 
-    to cover a wide range of perspectives. Provide the questions in a numbered list format. 
-    Separate each question with a newline and make sure they are easy to parse.\n\n
-    Text: "${text}"\n\n
-    Questions:\n
-    1.
+  Generate a list of ${numQuestions} questions or insights based on the following text, using the Six Thinking Hats methodology(). 
+  Distribute the questions evenly across the hats where:
+    - questions focus on data and facts.
+    - questions involve emotions or feelings.
+    - questions explore potential problems or risks.
+    - questions look at the benefits or positive aspects.  
+    - questions encourage creative or alternative thinking.
+    - questions should focus on managing the discussion or thinking process.
+  Ensure each question or insight is unique and addresses different aspects of the content. Format the questions as a numbered list, separated by a newline and easy to parse.
+  Do not need to state which hat is being used.
+  Text: "${text}"\n\n
+  Questions:\n
+  1.
   `;
 
   try {
@@ -98,15 +103,20 @@ export const generateAnswers = async (text, numAnswers) => {
 
 export const generateIdeas = async (text, numIdeas) => {
   const prompt = `
-    Generate a list of ${numIdeas} creative, original, and insightful ideas based on the following text. If not enough context is given, output broad ideas related to the topic instead of just -the provided text has not enough context...
-    Each idea should be relevant to the main ideas and themes of the text. Ensure that each idea 
-    is unique and addresses different aspects of the content. Provide the ideas in a numbered list format. 
-    Separate each idea with a newline and make sure they are easy to parse.\n\n
-    Text: "${text}"\n\n
-    Ideas:\n
-    1.
-  `;
-
+  Generate a list of ${numIdeas} ideas based on the following text, using the Six Thinking Hats methodology(). 
+  Distribute the questions evenly across the hats where:
+    - Ideas focus on data and facts.
+    - Ideas involve emotions or feelings.
+    - Ideas explore potential problems or risks.
+    - Ideas look at the benefits or positive aspects.  
+    - Ideas encourage creative or alternative thinking.
+    - Ideas should focus on managing the discussion or thinking process.
+  Ensure each idea is unique and addresses different aspects of the content. Format the ideas as a numbered list, separated by a newline and easy to parse.
+  Do not need to state which hat is being used.
+  Text: "${text}"\n\n
+  Questions:\n
+  1.
+`;
   try {
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
