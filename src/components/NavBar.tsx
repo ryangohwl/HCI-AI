@@ -36,6 +36,7 @@ const NavBar: FunctionComponent<NavBarType> = ({ className = "" }) => {
             src='/vector-29.svg'
           />
         </button>
+        /* Use this to update the account name */
         <div className='w-[300px] relative h-[50px] hover:animate-[1s_ease_0s_1_normal_none_pulsate] hover:opacity-[1]'>
           <div className='absolute top-[4px] right-[50px] inline-block w-[250px] h-[29px]'>
             Account Name
