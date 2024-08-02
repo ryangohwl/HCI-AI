@@ -9,12 +9,16 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const onLoginButtonClick = useCallback(async () => {
+    console.log(import.meta.env.VITE_BASE_URL);
     console.log(`${username}, ${password}`);
     try {
-      const response = await axios.post("http://localhost:3000/user/login", {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/user/login`,
+        {
+          username,
+          password,
+        }
+      );
 
       // console.log("Login success:", response.data.user);
       navigate("/home", {
@@ -22,7 +26,9 @@ const Login = () => {
         state: { user: response.data.user },
       });
       // Handle successful login here (e.g., redirect, store token)
-    } catch (error) {}
+    } catch (error) {
+      setError("Wrong username or password.");
+    }
   }, [username, password, navigate]);
 
   const handleKeyDown = useCallback(

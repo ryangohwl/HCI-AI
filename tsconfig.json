@@ -23,7 +23,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src/**/*"
   ],
   "exclude": ["node_modules/@tldraw/store/dist-cjs/index.d.ts", "node_modules/@tldraw/tlschema/dist-cjs/index.d.ts"]
 

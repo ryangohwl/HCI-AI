@@ -60,29 +60,27 @@ export function SnapshotButton() {
   const handleGetSelectedShapes = useGetArrows()
 
 
-  useEffect(() => {
-    if (showCheckMark) {
-      const timeout = setTimeout(() => {
-        setShowCheckMark(false);
-      }, 1000);
-      return () => clearTimeout(timeout);
-    }
-  }, [showCheckMark]);
+	useEffect(() => {
+		if (showCheckMark) {
+			const timeout = setTimeout(() => {
+				setShowCheckMark(false)
+			}, 1000)
+			return () => clearTimeout(timeout)
+		}
+		return
+	})
+
+  
 
   const save = useCallback(async () => {
     try {
       const shapeIds = await editor.getCurrentPageShapeIds();
       if (shapeIds.size === 0) return alert("No shapes on the canvas");
       const { document, session } = getSnapshot(editor.store);
-      const blob = await exportToBlob({
-        editor,
-        ids: [...shapeIds],
-        format: "png",
-        opts: { background: false },
-      });
+
 
       const response = await axios.put(
-        "http://localhost:3000/whiteboard/saveWhiteboard",
+        `${import.meta.env.VITE_BASE_URL}/whiteboard/saveWhiteboard`,
         {
           document,
           session,
@@ -98,7 +96,7 @@ export function SnapshotButton() {
   const load = useCallback(async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/whiteboard/loadWhiteboard/${userId}/${boardId}`
+        `${import.meta.env.VITE_BASE_URL}/whiteboard/loadWhiteboard/${userId}/${boardId}`
       );
       const loadedDocument = JSON.parse(response.data.document);
       const loadedSession = JSON.parse(response.data.session);
@@ -108,8 +106,7 @@ export function SnapshotButton() {
       };
       loadSnapshot(editor.store, snapshot);
     } catch (err) {
-      setError(err);
-      console.error("Error loading whiteboard:", err);
+
     }
   }, [editor, userId, boardId]);
 
@@ -120,28 +117,32 @@ export function SnapshotButton() {
   return (
     <div
       style={{
-        padding: 20,
         pointerEvents: "all",
         display: "flex",
         gap: "10px",
+        width:300,
+        height:50
       }}
     >
-      <span
+      <span className="relative top-4 left-7 text-5xl"
         style={{
+          
           display: "inline-block",
           transition: "transform 0.2s ease, opacity 0.2s ease",
           transform: showCheckMark ? `scale(1)` : `scale(0.5)`,
           opacity: showCheckMark ? 1 : 0,
         }}
       >
-        Saved ✅
-      </span>
+		
+				Saved ✅
+			</span>
+    
       <button
         onClick={async () => {
           try {
             console.log(userId);
             const response = await axios.get(
-              `http://localhost:3000/user/${userId}`
+              `${import.meta.env.VITE_BASE_URL}/user/${userId}`
             );
             const user = response.data.user;
             await save();
@@ -158,12 +159,12 @@ export function SnapshotButton() {
         Back to Home
       </button>
       <button
-        className='text-white bg-blue-700 hover:bg-blue-800 absolute top-2 right-2 text-3xl font-bold px-4 py-2 rounded-full'
-        onClick={async () => {
+        className="text-white bg-blue-700 hover:bg-blue-800 absolute top-4 right-2 text-3xl font-bold px-10 py-2 rounded-full"
+        onClick={ async() => {
           await save();
           setShowCheckMark(true);
         }}
-        x
+
       >
         Save Canvas
       </button>
