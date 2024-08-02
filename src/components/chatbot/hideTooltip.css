@@ -2,3 +2,15 @@
   display: block; /* Ensure it starts visible */
 }
 
+.rcb-chat-header-container {
+  background-color: #9AC1F0 !important; /* bg-blue-700 */
+}
+
+.rcb-bot-message{
+  background-color: #9AC1F0 !important; /* bg-blue-700 */
+}
+
+.rcb-chat-footer-container {
+  background-color: #9AC1F0
+  !important; /* hover:bg-blue-800 */
+}
