@@ -29,7 +29,7 @@ const handleGenerateItems = async (editor, selectedText, generateFunction, numIt
       const originalWidth = originalShape.props.width || 200;
       const originalHeight = originalShape.props.height || 50;
       const offsetX = 1000;
-      const offsetY = 50;
+      const offsetY = 100;
       const fromGenerateShapeId = originalShape.id
 
       const createShapesPromises = items.map((item, index) => {
@@ -47,7 +47,7 @@ const handleGenerateItems = async (editor, selectedText, generateFunction, numIt
             type: 'text',
             x: position.x,
             y: position.y,
-            props: { text: item },
+            props: { text: item, w:300, autoSize:false, w: 800},
           }]),
           editor.createShape({
             id: newArrowShapeId,
@@ -98,13 +98,21 @@ const GetSelectedTexts = track(() => {
   const editor = useEditor();
   const [selectedText, setSelectedText] = useState('');
   const [selectedTexts, setSelectedTexts] = useState([]);
-
+  if (editor.getSelectedShapes().length > 0) {
+		editor.getSelectedShapes().map((shape) =>
+			console.log(shape.props)
+		);
+	}
   // Function to update selected text
   const updateSelectedText = () => {
     const selectedTextsArray = editor.getSelectedShapes()
       .filter(shape => shape.type === 'text' && shape.props && shape.props.text)
       .map(shape => shape.props.text);
-
+if (editor.getSelectedShapes().length > 0) {
+		editor.getSelectedShapes().map((shape) =>
+			console.log(shape.props.text)
+		);
+	}
     // console.log('Updating selected text from selectedTexts:', selectedTextsArray);
     if (selectedTextsArray.length > 0) {
       setSelectedText(selectedTextsArray.join(' '));

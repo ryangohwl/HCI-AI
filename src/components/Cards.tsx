@@ -26,7 +26,9 @@ const Cards: FunctionComponent<CardsType> = ({ className = "", user_id }) => {
     const fetchLastThreeWhiteboards = async () => {
       try {
         const response = await axios.get(
-          `{}}/${userId}`
+          `${
+            import.meta.env.VITE_BASE_URL
+          }/whiteboard/lastthreewhiteboards/${userId}`
         );
         setLastThreeWhiteboards(response.data.displayBoards); // Make sure your API matches this data structure
       } catch (error) {
@@ -49,7 +51,7 @@ const Cards: FunctionComponent<CardsType> = ({ className = "", user_id }) => {
     >
       <NewMindMapCard user_id={user_id} />
       {boardIds.map((id, index) => (
-        <OldMindMap key={index} boardId={id} userId={user_id} />
+        <OldMindMap key={index} idKey={index} boardId={id} userId={user_id} />
       ))}
     </section>
   );

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const apiKey = "sk-proj-KgV9CaNxKKcdiN3icTP0T3BlbkFJUyhDwVNbPuu0jgmwWXJe"; // INSERT API KEY
+const apiKey = import.meta.env.VITE_OPENAI_KEY; // INSERT API KEY
 
 export const generateQuestions = async (text, numQuestions) => {
   const prompt = `

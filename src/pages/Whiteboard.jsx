@@ -1,12 +1,12 @@
 
 
 import React, { useState } from "react";
-import { Tldraw, useEditor, getSnapshot } from 'tldraw';
+import { Tldraw, useEditor, getSnapshot, ToggleLockMenuItem } from 'tldraw';
 import { useNavigate } from "react-router-dom";
 import MyChatBot from "../components/chatbot/llm";
 import CustomContextMenu from "../components/canvas/RightClickGenerate";
 import GetSelectedTexts from "../components/canvas/GetSelectedText";
-
+import ToolTip from "../components/canvas/ToolTip";
 import "../hideToolbar.css"; // Import the CSS file with the correct path
 
 import axios from "axios";
@@ -20,8 +20,8 @@ const components = {
 };
 
 
-
 function Whiteboard() {
+  
   return (
     <>
 
@@ -41,14 +41,20 @@ function Whiteboard() {
       >
         Save Canvas
       </button> */}
+
       <div style={{ position: 'fixed', inset: 0 }}>
+
         <Tldraw components={components}>
 
           <GetSelectedTexts />
         </Tldraw>
+
       </div>
+
       <div className="chatbot">
+
         <MyChatBot />
+
       </div>
 
       
@@ -97,7 +103,7 @@ export function SnapshotButton() {
       if (shapeIds.size === 0) {
         console.log("hello")
         try{
-        const response = await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/whiteboard/deleteWhiteboard/${userId}/${boardId}`)
+        const response = await axios.delete(`${import.meta.env.VITE_BASE_URL}/whiteboard/deleteWhiteboard/${userId}/${boardId}`)
         }
         catch (error) {
           console.error("error deleting whiteboard",err)
@@ -107,7 +113,7 @@ export function SnapshotButton() {
       const { document, session } = getSnapshot(editor.store);
       //CHECKED
       const response = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/whiteboard/saveWhiteboard`,
+        `${import.meta.env.VITE_BASE_URL}/whiteboard/saveWhiteboard`,
         {
           document,
           session,
@@ -128,14 +134,16 @@ export function SnapshotButton() {
   return (
     <div
       style={{
-        padding: 20,
         pointerEvents: "all",
         display: "flex",
         gap: "10px",
+        width:300,
+        height:50
       }}
     >
-      <span
+      <span className="relative top-4 left-7 text-5xl"
         style={{
+          
           display: "inline-block",
           transition: "transform 0.2s ease, opacity 0.2s ease",
           transform: showCheckMark ? `scale(1)` : `scale(0.5)`,
@@ -148,7 +156,7 @@ export function SnapshotButton() {
       className=" text-white bg-blue-700 hover:bg-blue-800  absolute left-2 bottom-36 h-10 w-30 rounded-full px-4 py-2 text-3xl font-bold"
         onClick={async () => {
           const response = await axios.get(
-            `${process.env.REACT_APP_API_BASE_URL}/user/${userId}`
+            `${import.meta.env.VITE_BASE_URL}/user/${userId}`
           );
           const user = response.data.user;
 
@@ -164,7 +172,7 @@ export function SnapshotButton() {
         Back to Home
       </button>
       <button
-      className="text-white bg-blue-700 hover:bg-blue-800 absolute top-2 right-2 text-3xl font-bold px-4 py-2 rounded-full"
+      className="text-white bg-blue-700 hover:bg-blue-800 absolute top-4 right-2 text-3xl font-bold px-10 py-2 rounded-full"
         onClick={ async() => {
           await save();
           setShowCheckMark(true);
@@ -172,6 +180,7 @@ export function SnapshotButton() {
       >
         Save Canvas
       </button>
+
       {/* <button onClick={load}>Load Snapshot</button> */}
     </div>
   );
