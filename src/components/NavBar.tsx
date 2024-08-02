@@ -1,5 +1,6 @@
 import { FunctionComponent, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export type NavBarType = {
   className?: string;
@@ -7,6 +8,8 @@ export type NavBarType = {
 
 const NavBar: FunctionComponent<NavBarType> = ({ className = "" }) => {
   const navigate = useNavigate();
+  const user = useLocation().state.user;
+  const userId = user._id;
 
   const onLogoutGroupClick = useCallback(() => {
     navigate("/login");
@@ -27,18 +30,18 @@ const NavBar: FunctionComponent<NavBarType> = ({ className = "" }) => {
           className='cursor-pointer [border:none] p-0 bg-[transparent] w-[168.5px] relative h-[37px] hover:animate-[1s_ease_0s_1_normal_none_pulsate] hover:opacity-[1]'
           onClick={() => navigate("/")}
         >
-          <div className='absolute top-[0px] right-[24.5px] text-13xl font-super-easy text-steelblue text-left inline-block w-36 h-[33px]'>
+          <div className='absolute top-[4px] right-[15px] text-13xl font-super-easy text-steelblue text-left inline-block w-36 h-[33px]'>
             Log Out
           </div>
           <img
-            className='absolute top-[6px] right-[0px] w-[32.5px] h-[31px]'
+            className='absolute top-[8px] right-[0px] w-[32.5px] h-[31px]'
             alt=''
             src='/vector-29.svg'
           />
         </button>
         <div className='w-[300px] relative h-[50px] hover:animate-[1s_ease_0s_1_normal_none_pulsate] hover:opacity-[1]'>
-          <div className='absolute top-[4px] right-[50px] inline-block w-[250px] h-[29px]'>
-            Account Name
+          <div className='absolute top-[4px] right-[0px] inline-block w-[250px] h-[29px]'>
+             {user.username}
           </div>
           <img
             className='absolute top-[0px] right-[0px] w-[50px] h-[50px]'
