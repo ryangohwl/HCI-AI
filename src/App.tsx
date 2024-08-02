@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Whiteboard from "./pages/Whiteboard.jsx";
 import OldWhiteboard from "./pages/oldWhiteboard.jsx";
+import CreateNewUser from "./pages/CreateNewUser";
 // import SnapshotExample from "./pages/testWhiteboad.js";
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
       {/* <Route path='/testWhiteboard' element={<SnapshotExample />} /> */}
       <Route path='/oldWhiteboard' element={<OldWhiteboard />} />
       <Route path='/home' element={<Home />} />
+      <Route path='/newuser' element={<CreateNewUser />} />
     </Routes>
   );
 }
