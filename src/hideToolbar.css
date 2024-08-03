@@ -61,6 +61,3 @@
     display: none;
   }
 
-  .tlui-button[data-testid="minimap.toggle-button"]{
-    display:none;
-  }
