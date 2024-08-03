@@ -114,6 +114,7 @@ export function SnapshotButton() {
     const { document, session } = getSnapshot(editor.store);
     try {
       const shapeIds = await editor.getCurrentPageShapeIds();
+<<<<<<< HEAD
       if (shapeIds.size === 1) {
         const shapeType = editor.getCurrentPageShapes()[0].type
         if (shapeType ==="text") {
@@ -127,8 +128,18 @@ export function SnapshotButton() {
           }
             
           }
+=======
+      // console.log(shapeIds)
+      if (shapeIds.size === 0) {
+        console.log("hello")
+        try{
+        const response = await axios.delete(`${import.meta.env.VITE_BASE_URL}/whiteboard/deleteWhiteboard/${userId}/${boardId}`)
+>>>>>>> 3fa8d090 (save button)
         }
-        
+        catch (error) {
+          console.error("error deleting whiteboard",err)
+        }
+      }
           
         
       else {
