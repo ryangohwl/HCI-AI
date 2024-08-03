@@ -185,7 +185,7 @@ export function SnapshotButton() {
         Saved ✅
       </span>
       <button
-      className=" text-white bg-blue-700 hover:bg-blue-800  absolute left-14 bottom-2 h-10 w-30 rounded-full px-4 py-2 text-3xl font-bold"
+      className=" text-white bg-blue-700 hover:bg-blue-800  absolute left-2 bottom-36 h-10 w-30 rounded-full px-4 py-2 text-3xl font-bold"
         onClick={async () => {
           const response = await axios.get(
             `${import.meta.env.VITE_BASE_URL}/user/${userId}`
