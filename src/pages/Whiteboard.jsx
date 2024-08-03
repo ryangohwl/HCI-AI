@@ -124,6 +124,16 @@ export function SnapshotButton() {
               catch (error) {
                 console.error("error deleting whiteboard",err)
               }
+          } else {
+            const response = await axios.put(
+              `${import.meta.env.VITE_BASE_URL}/whiteboard/saveWhiteboard`,
+              {
+                document,
+                session,
+                userId,
+                boardId,
+              }
+            );
           }
             
           }
