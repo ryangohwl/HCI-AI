@@ -87,18 +87,18 @@ export function SnapshotButton() {
   const [error, setError] = useState(null);
 
 
-  useEffect(()=>{
-    const newTextShapeId = createShapeId();
-    editor.createShape({
-      id: newTextShapeId,
-      type: "text",
-      x:650,
-      y:100,
-      props: {
-        text: "RIGHT CLICK ANY TEXT BOX TO GET HELP BRAINSTORMING!😄",
-      },
-      })
-  },[])
+  // useEffect(()=>{
+  //   const newTextShapeId = createShapeId();
+  //   editor.createShape({
+  //     id: newTextShapeId,
+  //     type: "text",
+  //     x:650,
+  //     y:100,
+  //     props: {
+  //       text: "RIGHT CLICK ANY TEXT BOX TO GET HELP BRAINSTORMING!😄",
+  //     },
+  //     })
+  // },[])
   
   
   useEffect(() => {
