@@ -98,14 +98,17 @@ function Whiteboard() {
         onClick={() => setShowPopup(true)}
         style={{
           position: "fixed",
-          bottom: 3,
-          left: 1115,
+          top: 50,
+          right: 150,
           padding: "10px 10px",
           background: "none",
           color: "none",
           border: "none",
           borderRadius: 5,
           cursor: "pointer",
+          display:"flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <img src={questionmarkicon} alt="Help" style={{ width: "30px", height: "30px" }} />
