@@ -8,7 +8,7 @@ import CustomContextMenu from "../components/canvas/RightClickGenerate";
 import GetSelectedTexts from "../components/canvas/GetSelectedText";
 import ToolTip from "../components/canvas/ToolTip";
 import "../hideToolbar.css"; // Import the CSS file with the correct path
-
+import { createShapeId } from "tldraw";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useMemo,useEffect, useCallback } from "react";
@@ -45,7 +45,6 @@ function Whiteboard() {
       <div style={{ position: 'fixed', inset: 0 }}>
 
         <Tldraw components={components}>
-
           <GetSelectedTexts />
         </Tldraw>
 
@@ -63,6 +62,7 @@ function Whiteboard() {
     </>
   );
 }
+
 
 export default Whiteboard;
 
@@ -86,6 +86,21 @@ export function SnapshotButton() {
   const [showCheckMark, setShowCheckMark] = useState(false);
   const [error, setError] = useState(null);
 
+
+  useEffect(()=>{
+    const newTextShapeId = createShapeId();
+    editor.createShape({
+      id: newTextShapeId,
+      type: "text",
+      x:650,
+      y:100,
+      props: {
+        text: "RIGHT CLICK ANY TEXT BOX TO GET HELP BRAINSTORMING!😄",
+      },
+      })
+  },[])
+  
+  
   useEffect(() => {
     if (showCheckMark) {
       const timeout = setTimeout(() => {
@@ -96,31 +111,58 @@ export function SnapshotButton() {
   }, [showCheckMark]);
 
   const save = useCallback(async () => {
+    const { document, session } = getSnapshot(editor.store);
     try {
-
       const shapeIds = await editor.getCurrentPageShapeIds();
-      // console.log(shapeIds)
-      if (shapeIds.size === 0) {
-        console.log("hello")
-        try{
-        const response = await axios.delete(`${import.meta.env.VITE_BASE_URL}/whiteboard/deleteWhiteboard/${userId}/${boardId}`)
+      if (shapeIds.size === 1) {
+        const shapeType = editor.getCurrentPageShapes()[0].type
+        if (shapeType ==="text") {
+          if (editor.getCurrentPageShapes()[0].props.text ==="RIGHT CLICK ANY TEXT BOX TO GET HELP BRAINSTORMING!😄"){
+            try{
+              const response = await axios.delete(`${import.meta.env.VITE_BASE_URL}/whiteboard/deleteWhiteboard/${userId}/${boardId}`)
+              }
+              catch (error) {
+                console.error("error deleting whiteboard",err)
+              }
+          } else {
+            const response = await axios.put(
+              `${import.meta.env.VITE_BASE_URL}/whiteboard/saveWhiteboard`,
+              {
+                document,
+                session,
+                userId,
+                boardId,
+              }
+            );
+          }
+            
+          }
         }
-        catch (error) {
-          console.error("error deleting whiteboard",err)
-        }
-      }
+        
+          
+        
       else {
-      const { document, session } = getSnapshot(editor.store);
-      //CHECKED
-      const response = await axios.put(
-        `${import.meta.env.VITE_BASE_URL}/whiteboard/saveWhiteboard`,
-        {
-          document,
-          session,
-          userId,
-          boardId
+        if (shapeIds.size === 0) {
+          try{
+            const response = await axios.delete(`${import.meta.env.VITE_BASE_URL}/whiteboard/deleteWhiteboard/${userId}/${boardId}`)
+            }
+            catch (error) {
+              console.error("error deleting whiteboard",err)
+            }
+        } else{
+          const response = await axios.put(
+            `${import.meta.env.VITE_BASE_URL}/whiteboard/saveWhiteboard`,
+            {
+              document,
+              session,
+              userId,
+              boardId
+            }
+          );
         }
-      );
+      
+      //CHECKED
+
       }
     } catch (err) {
       console.error("Error saving whiteboard:", err);
@@ -153,7 +195,7 @@ export function SnapshotButton() {
         Saved ✅
       </span>
       <button
-      className=" text-white bg-blue-700 hover:bg-blue-800  absolute left-14 bottom-2 h-10 w-30 rounded-full px-4 py-2 text-3xl font-bold"
+      className=" text-white bg-blue-700 hover:bg-blue-800  absolute left-2 bottom-36 h-10 w-30 rounded-full px-4 py-2 text-3xl font-bold"
         onClick={async () => {
           const response = await axios.get(
             `${import.meta.env.VITE_BASE_URL}/user/${userId}`

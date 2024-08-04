@@ -28,6 +28,9 @@ const Login = () => {
       // Handle successful login here (e.g., redirect, store token)
     } catch (error) {
       setError("Wrong username or password.");
+      setTimeout(() => {
+        setError(""); // Clear the error message after 5 seconds
+      }, 5000);
     }
   }, [username, password, navigate]);
 
@@ -65,7 +68,7 @@ const Login = () => {
                 onKeyDown={handleKeyDown}
               />
               <div className='absolute top-[0px] left-[0px]'>
-                Username/Email
+                Username
               </div>
             </div>
             <div className='absolute top-[103px] left-[calc(50%_-_185px)] w-[370px] h-[86px]'>

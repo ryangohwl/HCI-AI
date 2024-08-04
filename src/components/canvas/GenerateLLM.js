@@ -61,6 +61,7 @@ export const generateAnswers = async (text, numAnswers) => {
     Each answer should be relevant to the main ideas and themes of the text. Ensure that each answer 
     is unique and addresses different aspects of the content. Provide the answers in a numbered list format. 
     Separate each answer with a newline and make sure they are easy to parse.\n\n
+    If very little context is given, output surrounding ideas related to that topic regardless\n\n
     Text: "${text}"\n\n
     Answers:\n
     1.
