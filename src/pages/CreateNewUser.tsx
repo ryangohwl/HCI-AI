@@ -7,6 +7,7 @@ const CreateNewUser: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
 
   const onRegisterButtonClick = useCallback(async () => {
     console.log(import.meta.env.VITE_BASE_URL);
@@ -14,18 +15,20 @@ const CreateNewUser: React.FC = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/user/create-user`,
-        {
-          username,
-          password,
-        }
+        { username, password }
       );
       console.log('Registration successful:', response.data);
-      navigate("/", {
-        replace: true,
-      });
+      setSuccess("Registration successful!");
+      setTimeout(() => {
+        setSuccess(""); // Clear the success message
+        navigate("/", { replace: true });
+      }, 2000); // Wait for 2 seconds before redirecting
     } catch (error: any) {
       console.error('Registration error:', error.response?.data?.message || error.message);
       setError(error.response?.data?.message || "Registration failed. Please try again.");
+      setTimeout(() => {
+        setError(""); // Clear the error message after 2 seconds
+      }, 3000);
     }
   }, [username, password, navigate]);
 
@@ -37,7 +40,6 @@ const CreateNewUser: React.FC = () => {
     },
     [onRegisterButtonClick]
   );
-
   const onBackButtonClick = () => {
     navigate("/");
   };
@@ -87,6 +89,7 @@ const CreateNewUser: React.FC = () => {
               Register
             </b>
           </button>
+          {success && <p className='text-red-500 text-center' style={{ whiteSpace: 'pre-wrap' }}>{success}</p>}
           {error && <p className='text-red-500 text-center' style={{ whiteSpace: 'pre-wrap' }}>{error}</p>}
           <button
             className='cursor-pointer [border:none] p-0 bg-[transparent] absolute top-[708px] left-[calc(50%_-_119px)] w-[238px] h-[50px]'

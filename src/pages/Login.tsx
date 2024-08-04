@@ -28,6 +28,9 @@ const Login = () => {
       // Handle successful login here (e.g., redirect, store token)
     } catch (error) {
       setError("Wrong username or password.");
+      setTimeout(() => {
+        setError(""); // Clear the error message after 5 seconds
+      }, 5000);
     }
   }, [username, password, navigate]);
 
