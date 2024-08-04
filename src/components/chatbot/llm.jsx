@@ -58,7 +58,7 @@ const MyChatBot = () => {
         botBubbleStyle: { background: mainColor },
         chatHistory: { storageKey: "example_llm_conversation" },
         chatButton: { icon: "/capybara@2x.png" },
-        tooltip: { text: "Ask Me Anything!😊 " },
+        tooltip: { text: "Click me to chat!😊 " },
         botBubble: { showAvatar: true, avatar: "/capybara@2x.png" },
         header: {
             avatar: "/capybara@2x.png",
@@ -66,7 +66,7 @@ const MyChatBot = () => {
         }
     }
 
-    // Hide tooltip after 5 seconds
+    // Hide tooltip after 10 seconds
     useEffect(() => {
         const timer = setTimeout(() => {
             const tooltip = document.querySelector('.rcb-chat-tooltip');
