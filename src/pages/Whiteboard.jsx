@@ -6,65 +6,110 @@ import MyChatBot from "../components/chatbot/llm";
 import CustomContextMenu from "../components/canvas/RightClickGenerate";
 import GetSelectedTexts from "../components/canvas/GetSelectedText";
 import ToolTip from "../components/canvas/ToolTip";
-import "../hideToolbar.css"; // Import the CSS file with the correct path
-import instructionsPage from "../instructions-page.png"; // Correctly import the image
+import "../hideToolbar.css"; // Hiding specific tools on toolbar
+import instructionsPage from "../instructions-page.png"; // Import instructions ppng
+import questionmarkicon from "../questionmark.png"; // Import question mark png
 
 const components = {
   ContextMenu: CustomContextMenu,
   SharePanel: SnapshotButton,
 };
 
+// Popup component for displaying the instructions image
+function InstructionsPopup({ show, onClose }) {
+  if (!show) return null;
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: "rgba(0, 0, 0, 0.5)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+      }}
+    >
+      <div
+        style={{
+          position: "relative",
+          background: "white",
+          padding: 20,
+          borderRadius: 8,
+          width: "80%",
+          height: "80%",
+        }}
+      >
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            background: "red",
+            color: "white",
+            border: "none",
+            borderRadius: "50%",
+            width: 30,
+            height: 30,
+            cursor: "pointer",
+          }}
+        >
+          &times;
+        </button>
+        <img
+          src={instructionsPage}
+          alt="Instructions"
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </div>
+    </div>
+  );
+}
+
 function Whiteboard() {
-  const [showImage, setShowImage] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowImage(false);
-    }, 10000); // Hide the image after 10 seconds
-
-    return () => clearTimeout(timer);
-  }, []);
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <>
-      {showImage && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            background: "white",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 1000,
-          }}
-        >
-          <img src={instructionsPage} alt="Instructions" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      <InstructionsPopup show={showPopup} onClose={() => setShowPopup(false)} />
+      <div
+        style={{
+          padding: 20,
+          pointerEvents: "all",
+          display: "flex",
+          gap: "10px",
+        }}
+      >
+        <div style={{ position: "fixed", inset: 0 }}>
+          <Tldraw components={components}>
+            <GetSelectedTexts />
+          </Tldraw>
         </div>
-      )}
-      {!showImage && (
-        <div
-          style={{
-            padding: 20,
-            pointerEvents: "all",
-            display: "flex",
-            gap: "10px",
-          }}
-        >
-          <div style={{ position: 'fixed', inset: 0 }}>
-            <Tldraw components={components}>
-              <GetSelectedTexts />
-            </Tldraw>
-          </div>
-
-          <div className="chatbot">
-            <MyChatBot />
-          </div>
+        <div className="chatbot">
+          <MyChatBot />
         </div>
-      )}
+      </div>
+      <button
+        onClick={() => setShowPopup(true)}
+        style={{
+          position: "fixed",
+          bottom: 3,
+          left: 1115,
+          padding: "10px 10px",
+          background: "none",
+          color: "none",
+          border: "none",
+          borderRadius: 5,
+          cursor: "pointer",
+        }}
+      >
+        <img src={questionmarkicon} alt="Help" style={{ width: "30px", height: "30px" }} />
+      </button>
     </>
   );
 }

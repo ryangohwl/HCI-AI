@@ -19,7 +19,9 @@ const MyChatBot = () => {
             });
 
             const chatCompletion = await openai.chat.completions.create({
-                messages: [{ role: 'user', content: params.userInput }],
+                
+                messages: [{ role: 'system', content: 'You are a helpful chatbot for a mindmapping app, to purely assist the user in brainstorming by answering their questions through text, all except for how to use the app. Remind the user that you are there to assist only.' },
+                    { role: 'user', content: params.userInput }],
                 model: modelType,
             });
 
