@@ -73,7 +73,7 @@ const MyChatBot = () => {
             if (tooltip) {
                 tooltip.style.display = 'none';
             }
-        }, 5000);
+        }, 10000);
         return () => clearTimeout(timer);
 		// Clear timer when I exit the whiteboard, so it restarts when I click back into whiteboard
     }, []);
